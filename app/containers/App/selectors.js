@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 // selectLocationState expects a plain JS object for the routing state
 const selectLocationState = () => {
   let prevRoutingState;
@@ -15,6 +17,21 @@ const selectLocationState = () => {
   };
 };
 
+const selectGlobalDomain = () => (state) => state.get('global');
+
+const selectUserData = () => createSelector(
+  selectGlobalDomain(),
+  (state) => {
+    const userData = state.get('userData');
+    if (userData === false) {
+      return userData;
+    }
+
+    return userData.toJS();
+  }
+);
+
 export {
   selectLocationState,
+  selectUserData,
 };
