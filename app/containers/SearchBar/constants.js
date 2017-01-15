@@ -3,6 +3,6 @@
  * SearchBar constants
  *
  */
-const route = 'app/SearchBar/';
+const route = 'StockApp/SearchBar/';
 
 export const CHANGE_SEARCH_TERM = `${route}CHANGE_SEARCH_TERM`;

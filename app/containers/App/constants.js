@@ -10,3 +10,9 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+
+const route = 'StockApp/App/';
+export const DISPLAY_ERROR = `${route}DISPLAY_ERROR`;
+export const REMOVE_ERROR = `${route}REMOVE_ERROR`;
+export const SIGN_IN = `${route}SIGN_IN`;
+export const SIGN_OUT = `${route}SIGN_OUT`;
