@@ -13,12 +13,19 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+import SearchBar from '../SearchBar';
+import Navbar from '../../components/Navbar';
+
+import Background from './Background';
+
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <h1>
+      <Background>
+        <SearchBar />
+        <Navbar />
         <FormattedMessage {...messages.header} />
-      </h1>
+      </Background>
     );
   }
 }
