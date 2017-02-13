@@ -203,10 +203,12 @@
     "react-router-redux": "4.0.6",
     "react-router-scroll": "0.3.3",
     "redux": "3.6.0",
+    "redux-form": "^6.4.3",
     "redux-immutable": "3.0.8",
     "redux-saga": "0.12.0",
     "reselect": "2.5.4",
     "sanitize.css": "4.1.0",
+    "skeleton-css": "^2.0.4",
     "styled-components": "1.0.3",
     "warning": "3.0.0",
     "whatwg-fetch": "1.0.0"

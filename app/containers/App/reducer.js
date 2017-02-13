@@ -25,7 +25,7 @@ function appReducer(state = initialState, action) {
     // handlers for user signing
     case SIGN_IN:
       return state
-        .set('userData', action.userData);
+        .set('userData', fromJS(action.userData));
     case SIGN_OUT:
       return state
         .set('userData', false);

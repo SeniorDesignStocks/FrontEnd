@@ -4,6 +4,7 @@ import {
   SIGN_IN,
   SIGN_OUT,
 } from './constants';
+import { browserHistory } from 'react-router';
 
 export function displayError(message) {
   return {
@@ -19,6 +20,7 @@ export function removeError() {
 }
 
 export function signIn(userData) {
+  browserHistory.push('/');
   return {
     type: SIGN_IN,
     userData,
