@@ -16,6 +16,7 @@ const initialState = fromJS({
     favorited: false,
     stockData: {
       value: 300,
+      up: true,
     },
     plotData: false,
   }],

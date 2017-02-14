@@ -5,6 +5,10 @@ const LoadingBar = styled.div`
   line-height: 50px;
 
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 `;
 
 export default LoadingBar;
