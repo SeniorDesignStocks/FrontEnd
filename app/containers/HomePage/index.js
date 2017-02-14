@@ -14,6 +14,7 @@ import { selectUserData } from '../App/selectors';
 
 import SearchBar from '../SearchBar';
 import Navbar from '../../components/Navbar';
+import FavoriteList from '../FavoriteList';
 
 import Background from './Background';
 
@@ -25,7 +26,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
       <Background>
         <SearchBar />
         <Navbar userData={userData} />
-        <FormattedMessage {...messages.header} />
+        <FavoriteList />
       </Background>
     );
   }

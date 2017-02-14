@@ -4,4 +4,5 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/FavoriteList/DEFAULT_ACTION';
+export const ADD_FAVORITE = 'app/FavoriteList/ADD_FAVORITE';
+export const LOAD_FAVORITES = 'app/FavoriteList/LOAD_FAVORITES';

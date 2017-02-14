@@ -1,4 +1,5 @@
-export const white = '#F7FFF7';
+export const white = '#fff';
+export const tintedWhite = '#F7FFF7';
 export const red = '#FF6B6B';
 export const yellow = '#FFE66D';
 export const lightBlue = '#4ECDC4';

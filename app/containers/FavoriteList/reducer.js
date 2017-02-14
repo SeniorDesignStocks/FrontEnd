@@ -6,15 +6,31 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  ADD_FAVORITE,
+  LOAD_FAVORITES,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  favorites: [{
+    name: 'AAPL',
+    favorited: false,
+    stockData: {
+      value: 300,
+    },
+    plotData: false,
+  }],
+});
 
 function favoriteListReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case LOAD_FAVORITES:
+      return state
+        .set('favorites', action.favorites);
+
+    case ADD_FAVORITE:
+      return state
+        .get('favorites').push(action.newFavorite);
+
     default:
       return state;
   }
