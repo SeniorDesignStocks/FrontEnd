@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import SignInForm from '../../components/SignInForm';
 import { signIn } from '../App/actions';
 
+import Background from './elements/Background';
+
 export class SignInPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   handleSubmit = (values) => {
     const userData = values.toJS();
@@ -17,9 +19,9 @@ export class SignInPage extends React.PureComponent { // eslint-disable-line rea
 
   render() {
     return (
-      <div>
+      <Background>
         <SignInForm onSubmit={this.handleSubmit} />
-      </div>
+      </Background>
     );
   }
 }

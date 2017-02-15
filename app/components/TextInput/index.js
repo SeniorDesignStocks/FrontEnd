@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { textSmall, font } from '../../styles/text';
+import { lightGrey, grey, red } from '../../styles/colors';
 
 const Input = styled.input`
   outline: none;
-  border: none;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+  border: 1px solid ${grey};
+  background-color: ${lightGrey};
+  padding: 0 10px;
   &:focus {
-    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
+    border-color: ${red};
   }
 
   width: 300px;
