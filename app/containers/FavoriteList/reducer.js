@@ -8,19 +8,18 @@ import { fromJS } from 'immutable';
 import {
   ADD_FAVORITE,
   LOAD_FAVORITES,
+  LOADED_PLOT_DATA,
 } from './constants';
 
-const initialState = fromJS({
-  favorites: [{
-    name: 'AAPL',
-    favorited: false,
-    stockData: {
-      value: 300,
-      up: true,
-    },
-    plotData: false,
-  }],
-});
+const initialState = fromJS([{
+  name: 'AAPL',
+  favorited: false,
+  stockData: {
+    value: 300,
+    up: true,
+  },
+  plotData: false,
+}]);
 
 function favoriteListReducer(state = initialState, action) {
   switch (action.type) {
@@ -31,6 +30,13 @@ function favoriteListReducer(state = initialState, action) {
     case ADD_FAVORITE:
       return state
         .get('favorites').push(action.newFavorite);
+
+    case LOADED_PLOT_DATA:
+      return state
+        .update(
+          state.findIndex((item) => item.name === action.stockName),
+          (item) => item.set('plotData', action.plotData)
+        );
 
     default:
       return state;

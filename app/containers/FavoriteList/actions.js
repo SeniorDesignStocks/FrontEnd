@@ -5,11 +5,17 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  REQUEST_PLOT_DATA,
+  LOADED_PLOT_DATA,
 } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
+export const requestPlotData = (stockName) => ({
+  type: REQUEST_PLOT_DATA,
+  stockName,
+});
+
+export const plotDataLoaded = (stockName, plotData) => ({
+  type: LOADED_PLOT_DATA,
+  stockName,
+  plotData,
+});

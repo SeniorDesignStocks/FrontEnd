@@ -24,14 +24,17 @@ export default function createRoutes(store) {
         const importModules = Promise.all([
           System.import('containers/SearchBar/reducer'),
           System.import('containers/FavoriteList/reducer'),
+          System.import('containers/FavoriteList/sagas'),
           System.import('containers/HomePage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducerSearchBar, reducerFavoriteList, component]) => {
+        importModules.then(([reducerSearchBar, reducerFavoriteList, sagas, component]) => {
           injectReducer('searchBar', reducerSearchBar.default);
           injectReducer('favoriteList', reducerFavoriteList.default);
+          console.log(sagas.default);
+          injectSagas(sagas.default);
 
           renderRoute(component);
         });
