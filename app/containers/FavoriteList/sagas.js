@@ -8,8 +8,7 @@ import {
 
 export function* getPlotData(action) {
   console.log(action);
-  yield delay(2000);
-  yield put(plotDataLoaded(action.name, [
+  yield put(plotDataLoaded(action.stockName, [
     { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
     { name: 'Page B', uv: 300, pv: 4567, amt: 2400 },
     { name: 'Page C', uv: 300, pv: 1398, amt: 2400 },

@@ -19,6 +19,22 @@ const initialState = fromJS([{
     up: true,
   },
   plotData: false,
+}, {
+  name: 'AASS',
+  favorited: false,
+  stockData: {
+    value: 450,
+    up: false,
+  },
+  plotData: false,
+}, {
+  name: 'GOOG',
+  favorited: false,
+  stockData: {
+    value: 300,
+    up: true,
+  },
+  plotData: false,
 }]);
 
 function favoriteListReducer(state = initialState, action) {
@@ -34,7 +50,7 @@ function favoriteListReducer(state = initialState, action) {
     case LOADED_PLOT_DATA:
       return state
         .update(
-          state.findIndex((item) => item.name === action.stockName),
+          state.findIndex((item) => item.get('name') === action.stockName),
           (item) => item.set('plotData', action.plotData)
         );
 

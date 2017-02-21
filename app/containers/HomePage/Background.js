@@ -1,9 +1,9 @@
 import styled from 'styled-components';
+import { lightGrey } from 'styles/colors';
 
 const Background = styled.div`
-  background-color: #f8f8f8;
-  height: 100vh;
-  width: 100vw;
+  background-color: ${lightGrey};
+  padding-bottom: 50px;
 `;
 
 export default Background;
