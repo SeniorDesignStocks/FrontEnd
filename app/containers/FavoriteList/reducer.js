@@ -13,7 +13,7 @@ import {
 
 const initialState = fromJS([{
   name: 'AAPL',
-  favorited: false,
+  favorited: true,
   stockData: {
     value: 300,
     up: true,
@@ -21,7 +21,7 @@ const initialState = fromJS([{
   plotData: false,
 }, {
   name: 'AASS',
-  favorited: false,
+  favorited: true,
   stockData: {
     value: 450,
     up: false,
@@ -29,7 +29,7 @@ const initialState = fromJS([{
   plotData: false,
 }, {
   name: 'GOOG',
-  favorited: false,
+  favorited: true,
   stockData: {
     value: 300,
     up: true,

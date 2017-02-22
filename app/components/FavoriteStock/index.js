@@ -12,6 +12,8 @@ import LoadingBar from './elements/LoadingBar';
 import LoadingElement from './elements/LoadingElement';
 import StockName from './elements/StockName';
 import StockValue from './elements/StockValue';
+import FavoriteIcon from './elements/FavoriteIcon';
+import TitleBarLeft from './elements/TitleBarLeft';
 
 import { lightBlue } from 'styles/colors';
 
@@ -35,13 +37,16 @@ class FavoriteStock extends React.Component {
   }
 
   render() {
-    const { name, stockData, plotData } = this.props.info;
+    const { name, stockData, plotData, favorited } = this.props.info;
     const width = 800;
 
     return (
       <Wrapper>
         <TitleBar>
-          <StockName>{name}</StockName>
+          <TitleBarLeft>
+            <FavoriteIcon favorited={favorited} />
+            <StockName>{name}</StockName>
+          </TitleBarLeft>
           <StockValue up={stockData.up} value={stockData.value} />
         </TitleBar>
         { plotData === false
