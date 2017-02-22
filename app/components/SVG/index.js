@@ -1,10 +1,16 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import styled from 'styled-components';
 
 import iconArrowUp from 'assets/svg/arrow-up.svg';
 import iconArrowDown from 'assets/svg/arrow-down.svg';
 import iconStarFull from 'assets/svg/star-full.svg';
 import iconStarEmpty from 'assets/svg/star-empty.svg';
+import iconStarHalf from 'assets/svg/star-half.svg';
+
+const Wrapper = styled.div`
+  
+`;
 
 const getPath = (type) => {
   switch (type) {
@@ -12,6 +18,7 @@ const getPath = (type) => {
     case 'arrow-down': return iconArrowDown;
     case 'star-full': return iconStarFull;
     case 'star-empty': return iconStarEmpty;
+    case 'star-half': return iconStarHalf;
 
     default:
       console.error(`unable to find SVG: ${type}`);
@@ -42,11 +49,13 @@ const getStyle = (size, style) => {
   };
 };
 
-const SVG = ({ type, size, style }) => (
-  <ReactSVG
-    path={getPath(type)}
-    style={getStyle(size, style)}
-  />
+const SVG = ({ type, size, style, ...others }) => (
+  <Wrapper {...others}>
+    <ReactSVG
+      path={getPath(type)}
+      style={getStyle(size, style)}
+    />
+  </Wrapper>
 );
 
 SVG.propTypes = {

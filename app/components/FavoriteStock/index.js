@@ -44,7 +44,7 @@ class FavoriteStock extends React.Component {
       <Wrapper>
         <TitleBar>
           <TitleBarLeft>
-            <FavoriteIcon favorited={favorited} />
+            <FavoriteIcon favorited={favorited} onClick={this.props.unFavorite} />
             <StockName>{name}</StockName>
           </TitleBarLeft>
           <StockValue up={stockData.up} value={stockData.value} />
@@ -71,6 +71,7 @@ class FavoriteStock extends React.Component {
 FavoriteStock.propTypes = {
   info: React.PropTypes.object,
   requestPlotData: React.PropTypes.func,
+  unFavorite: React.PropTypes.func,
 };
 
 export default FavoriteStock;

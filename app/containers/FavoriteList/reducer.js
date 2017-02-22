@@ -9,6 +9,7 @@ import {
   ADD_FAVORITE,
   LOAD_FAVORITES,
   LOADED_PLOT_DATA,
+  UNFAVORITE_SUCCESS,
 } from './constants';
 
 const initialState = fromJS([{
@@ -53,6 +54,10 @@ function favoriteListReducer(state = initialState, action) {
           state.findIndex((item) => item.get('name') === action.stockName),
           (item) => item.set('plotData', action.plotData)
         );
+
+    case UNFAVORITE_SUCCESS:
+      return state
+        .filter((item) => item.get('name') !== action.stockName);
 
     default:
       return state;

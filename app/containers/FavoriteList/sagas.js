@@ -1,14 +1,18 @@
 import { delay } from 'redux-saga';
-import { plotDataLoaded } from './actions';
-import { takeLatest, put } from 'redux-saga/effects';
+import {
+  plotDataLoaded,
+  unfavoriteSuccess,
+} from './actions';
+import { takeEvery, put } from 'redux-saga/effects';
 
 import {
   REQUEST_PLOT_DATA,
+  UNFAVORITE,
 } from './constants';
 
-export function* getPlotData(action) {
-  console.log(action);
-  yield put(plotDataLoaded(action.stockName, [
+export function* getPlotData({ stockName }) {
+  yield delay(2000);
+  yield put(plotDataLoaded(stockName, [
     { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
     { name: 'Page B', uv: 300, pv: 4567, amt: 2400 },
     { name: 'Page C', uv: 300, pv: 1398, amt: 2400 },
@@ -18,11 +22,19 @@ export function* getPlotData(action) {
   ]));
 }
 
-export function* plotData() {
-  yield takeLatest(REQUEST_PLOT_DATA, getPlotData);
+export function* putUnfavorite({ stockName }) {
+  yield put(unfavoriteSuccess(stockName));
 }
 
+export function* plotData() {
+  yield takeEvery(REQUEST_PLOT_DATA, getPlotData);
+}
+
+export function* unfavorite() {
+  yield takeEvery(UNFAVORITE, putUnfavorite);
+}
 // All sagas to be loaded
 export default [
   plotData,
+  unfavorite,
 ];
