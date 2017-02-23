@@ -6,11 +6,11 @@
 
 import { fromJS } from 'immutable';
 import {
-  LOADED_PLOT_DATA,
+  PLOT_DATA_SUCCESS,
+  FAVORITE_DATA_SUCCESS,
 } from './constants';
 import {
   UNFAVORITE_SUCCESS,
-  ADDFAVORITE_SUCCESS,
 } from 'containers/App/constants';
 
 const initialState = fromJS([{
@@ -42,28 +42,19 @@ const initialState = fromJS([{
 function favoriteListReducer(state = initialState, action) {
   switch (action.type) {
 
-    case LOADED_PLOT_DATA:
+    case PLOT_DATA_SUCCESS:
       return state
         .update(
           state.findIndex((item) => item.get('name') === action.stockName),
           (item) => item.set('plotData', action.plotData)
         );
 
+    case FAVORITE_DATA_SUCCESS:
+      return state.push(action.data);
+
     case UNFAVORITE_SUCCESS:
       return state
         .filter((item) => item.get('name') !== action.stockName);
-
-    case ADDFAVORITE_SUCCESS:
-      return state
-        .push(fromJS({
-          name: action.stockName,
-          favorited: true,
-          stockData: {
-            value: 300,
-            up: true,
-          },
-          plotData: false,
-        }));
 
     default:
       return state;

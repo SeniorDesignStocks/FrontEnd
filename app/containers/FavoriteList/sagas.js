@@ -1,12 +1,18 @@
 import { delay } from 'redux-saga';
-import { takeEvery, put } from 'redux-saga/effects';
+import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
+import { takeEvery, put, take, cancel } from 'redux-saga/effects';
 
 import {
   plotDataLoaded,
+  favoriteDataSuccess,
 } from './actions';
 import {
   REQUEST_PLOT_DATA,
 } from './constants';
+import {
+  ADDFAVORITE_SUCCESS,
+} from 'containers/App/constants';
 
 export function* getPlotData({ stockName }) {
   yield delay(2000);
@@ -20,11 +26,36 @@ export function* getPlotData({ stockName }) {
   ]));
 }
 
+export function* getFavoriteData({ stockName }) {
+  yield put(favoriteDataSuccess(fromJS({
+    name: stockName,
+    favorited: true,
+    stockData: {
+      value: 300,
+      up: true,
+    },
+    plotData: false,
+  })));
+}
+
 export function* plotData() {
-  yield takeEvery(REQUEST_PLOT_DATA, getPlotData);
+  const watcher = yield takeEvery(REQUEST_PLOT_DATA, getPlotData);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+export function* loadFavoriteData() {
+  const watcher = yield takeEvery(ADDFAVORITE_SUCCESS, getFavoriteData);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 // All sagas to be loaded
 export default [
   plotData,
+  loadFavoriteData,
 ];
