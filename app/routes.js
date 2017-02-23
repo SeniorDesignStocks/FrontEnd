@@ -33,7 +33,6 @@ export default function createRoutes(store) {
         importModules.then(([reducerSearchBar, reducerFavoriteList, sagas, component]) => {
           injectReducer('searchBar', reducerSearchBar.default);
           injectReducer('favoriteList', reducerFavoriteList.default);
-          console.log(sagas.default);
           injectSagas(sagas.default);
 
           renderRoute(component);
