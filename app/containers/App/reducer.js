@@ -4,6 +4,8 @@ import {
   REMOVE_ERROR,
   SIGN_IN,
   SIGN_OUT,
+  UNFAVORITE_SUCCESS,
+  ADDFAVORITE_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -29,6 +31,22 @@ function appReducer(state = initialState, action) {
     case SIGN_OUT:
       return state
         .set('userData', false);
+
+    case UNFAVORITE_SUCCESS:
+      return state
+        .setIn(['userData', 'favorites'],
+          state
+            .getIn(['userData', 'favorites'])
+            .filter((item) => item !== action.stockName)
+        );
+
+    case ADDFAVORITE_SUCCESS:
+      return state
+        .setIn(['userData', 'favorites'],
+          state
+            .getIn(['userData', 'favorites'])
+            .push(action.stockName)
+      );
 
     default:
       return state;

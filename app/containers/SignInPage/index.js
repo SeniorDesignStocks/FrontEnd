@@ -14,7 +14,7 @@ import Background from './elements/Background';
 export class SignInPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   handleSubmit = (values) => {
     const userData = values.toJS();
-    this.props.handleSignIn(userData);
+    this.props.handleSignIn({ ...userData, favorites: ['AAPL', 'AASS', 'GOOG'] });
   }
 
   render() {

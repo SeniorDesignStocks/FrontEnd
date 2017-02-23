@@ -8,7 +8,6 @@ import {
   REQUEST_PLOT_DATA,
   LOADED_PLOT_DATA,
   UNFAVORITE,
-  UNFAVORITE_SUCCESS,
 } from './constants';
 
 export const requestPlotData = (stockName) => ({
@@ -24,10 +23,5 @@ export const plotDataLoaded = (stockName, plotData) => ({
 
 export const unfavorite = (stockName) => ({
   type: UNFAVORITE,
-  stockName,
-});
-
-export const unfavoriteSuccess = (stockName) => ({
-  type: UNFAVORITE_SUCCESS,
   stockName,
 });

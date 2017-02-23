@@ -31,7 +31,19 @@ const selectUserData = () => createSelector(
   }
 );
 
+const selectFavorites = () => createSelector(
+  selectUserData(),
+  (state) => {
+    if (state === false) {
+      return false;
+    }
+
+    return state.favorites;
+  }
+);
+
 export {
   selectLocationState,
   selectUserData,
+  selectFavorites,
 };

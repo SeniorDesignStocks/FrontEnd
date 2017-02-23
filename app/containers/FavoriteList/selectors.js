@@ -20,6 +20,3 @@ const selectFavoriteList = () => createSelector(
 );
 
 export default selectFavoriteList;
-export {
-  selectFavoriteListDomain,
-};

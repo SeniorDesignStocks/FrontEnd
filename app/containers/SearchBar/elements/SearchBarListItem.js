@@ -5,6 +5,8 @@ import { font, textMedium } from '../../../styles/text';
 const SearchResultStock = styled.li`
   font-family: ${font};
   font-size: ${textMedium};
+  display: flex;
+  flex-direction: row;
 
   height: 40px;
   line-height: 40px;

@@ -12,8 +12,8 @@ import LoadingBar from './elements/LoadingBar';
 import LoadingElement from './elements/LoadingElement';
 import StockName from './elements/StockName';
 import StockValue from './elements/StockValue';
-import FavoriteIcon from './elements/FavoriteIcon';
 import TitleBarLeft from './elements/TitleBarLeft';
+import FavoriteIcon from 'components/FavoriteIcon';
 
 import { lightBlue } from 'styles/colors';
 
@@ -28,7 +28,9 @@ import {
 
 class FavoriteStock extends React.Component {
   componentWillMount() {
-    this.props.requestPlotData();
+    if (this.props.info.plotData === false) {
+      this.props.requestPlotData();
+    }
   }
 
   shouldComponentUpdate() {

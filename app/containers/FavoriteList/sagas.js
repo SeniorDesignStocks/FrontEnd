@@ -1,13 +1,11 @@
 import { delay } from 'redux-saga';
 import {
   plotDataLoaded,
-  unfavoriteSuccess,
 } from './actions';
 import { takeEvery, put } from 'redux-saga/effects';
 
 import {
   REQUEST_PLOT_DATA,
-  UNFAVORITE,
 } from './constants';
 
 export function* getPlotData({ stockName }) {
@@ -22,19 +20,11 @@ export function* getPlotData({ stockName }) {
   ]));
 }
 
-export function* putUnfavorite({ stockName }) {
-  yield put(unfavoriteSuccess(stockName));
-}
-
 export function* plotData() {
   yield takeEvery(REQUEST_PLOT_DATA, getPlotData);
 }
 
-export function* unfavorite() {
-  yield takeEvery(UNFAVORITE, putUnfavorite);
-}
 // All sagas to be loaded
 export default [
   plotData,
-  unfavorite,
 ];

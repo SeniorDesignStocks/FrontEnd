@@ -16,3 +16,11 @@ export const DISPLAY_ERROR = `${route}DISPLAY_ERROR`;
 export const REMOVE_ERROR = `${route}REMOVE_ERROR`;
 export const SIGN_IN = `${route}SIGN_IN`;
 export const SIGN_OUT = `${route}SIGN_OUT`;
+
+export const UNFAVORITE = `${route}UNFAVORITE`;
+export const UNFAVORITE_SUCCESS = `${route}UNFAVORITE_SUCCESS`;
+export const UNFAVORITE_FAILED = `${route}UNFAVORITE_FAILED`;
+
+export const ADDFAVORITE = `${route}ADDFAVORITE`;
+export const ADDFAVORITE_SUCCESS = `${route}ADDFAVORITE_SUCCESS`;
+export const ADDFAVORITE_FAILED = `${route}ADDFAVORITE_FAILED`;

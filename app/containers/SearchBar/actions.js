@@ -10,7 +10,7 @@ import {
 
 export function changeSeachTerm(newSearchTerm) {
   // compute new search results
-  let testData = ['GOOG', 'AAPL', 'NEXT', 'AASS'];
+  let testData = ['GOOG', 'AAPL', 'NEXT', 'AASS', 'AXXA'];
   if (newSearchTerm.trim().length === 0) {
     testData = [];
   }

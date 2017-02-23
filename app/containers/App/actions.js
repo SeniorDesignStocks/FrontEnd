@@ -3,6 +3,10 @@ import {
   REMOVE_ERROR,
   SIGN_IN,
   SIGN_OUT,
+  UNFAVORITE,
+  UNFAVORITE_SUCCESS,
+  ADDFAVORITE,
+  ADDFAVORITE_SUCCESS,
 } from './constants';
 import { browserHistory } from 'react-router';
 
@@ -32,3 +36,23 @@ export function signOut() {
     type: SIGN_OUT,
   };
 }
+
+export const unfavorite = (stockName) => ({
+  type: UNFAVORITE,
+  stockName,
+});
+
+export const unfavoriteSuccess = (stockName) => ({
+  type: UNFAVORITE_SUCCESS,
+  stockName,
+});
+
+export const addFavorite = (stockName) => ({
+  type: ADDFAVORITE,
+  stockName,
+});
+
+export const addFavoriteSuccess = (stockName) => ({
+  type: ADDFAVORITE_SUCCESS,
+  stockName,
+});

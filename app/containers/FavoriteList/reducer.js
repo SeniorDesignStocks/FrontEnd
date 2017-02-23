@@ -9,8 +9,11 @@ import {
   ADD_FAVORITE,
   LOAD_FAVORITES,
   LOADED_PLOT_DATA,
-  UNFAVORITE_SUCCESS,
 } from './constants';
+import {
+  UNFAVORITE_SUCCESS,
+  ADDFAVORITE_SUCCESS,
+} from 'containers/App/constants';
 
 const initialState = fromJS([{
   name: 'AAPL',
@@ -58,6 +61,18 @@ function favoriteListReducer(state = initialState, action) {
     case UNFAVORITE_SUCCESS:
       return state
         .filter((item) => item.get('name') !== action.stockName);
+
+    case ADDFAVORITE_SUCCESS:
+      return state
+        .push(fromJS({
+          name: action.stockName,
+          favorited: true,
+          stockData: {
+            value: 300,
+            up: true,
+          },
+          plotData: false,
+        }));
 
     default:
       return state;

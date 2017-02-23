@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -14,15 +14,21 @@ import SearchBarFrame from './elements/SearchBarFrame';
 import SearchBarResults from './elements/SearchBarResults';
 
 import { selectSearchTerm, selectSearchResults } from './selectors';
+import { selectFavorites } from 'containers/App/selectors';
+import {
+  addFavorite,
+  unfavorite,
+} from 'containers/App/actions';
 import { changeSeachTerm } from './actions';
 
-export class SearchBar extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class SearchBar extends Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
 
-    this.state = {
-      focus: false,
-    };
+    // temp until i get this working better
+    // this.state = {
+    //   focus: false,
+    // };
   }
 
   handleFocus = (focus) => {
@@ -30,10 +36,10 @@ export class SearchBar extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
-    const { searchTerm, searchResults, onSearchTermChange } = this.props;
+    const { searchTerm, searchResults, onSearchTermChange, favorites, setFavorite } = this.props;
     let style = { height: '50px' };
 
-    if (this.state.focus && searchTerm.length > 0) {
+    if (searchTerm.length > 0) {
       style = {
         height: `${((1 + searchResults.length) * 50)}px`,
         boxShadow: '0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08)',
@@ -47,13 +53,13 @@ export class SearchBar extends React.Component { // eslint-disable-line react/pr
             type="text"
             value={searchTerm}
             onChange={onSearchTermChange}
-            onFocus={() => this.handleFocus(true)}
-            onBlur={() => this.handleFocus(false)}
           />
-          { this.state.focus && searchTerm.length > 0 ?
+          { searchTerm.length > 0 ?
             <SearchBarResults
               results={searchResults}
               searchTerm={searchTerm}
+              favorites={favorites}
+              setFavorite={setFavorite}
             />
             : '' }
         </SearchBarFrame>
@@ -63,19 +69,29 @@ export class SearchBar extends React.Component { // eslint-disable-line react/pr
 }
 
 SearchBar.propTypes = {
-  searchTerm: React.PropTypes.string,
-  searchResults: React.PropTypes.arrayOf(React.PropTypes.string),
-  onSearchTermChange: React.PropTypes.func,
+  searchTerm: PropTypes.string,
+  searchResults: PropTypes.arrayOf(PropTypes.string),
+  onSearchTermChange: PropTypes.func,
+  favorites: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
+  setFavorite: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   searchTerm: selectSearchTerm(),
   searchResults: selectSearchResults(),
+  favorites: selectFavorites(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onSearchTermChange: (e) => dispatch(changeSeachTerm(e.target.value)),
+    setFavorite: (stockName, isFavorite) => dispatch(
+      isFavorite
+        ? addFavorite(stockName)
+        : unfavorite(stockName)),
   };
 }
 
