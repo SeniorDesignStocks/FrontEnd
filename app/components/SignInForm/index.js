@@ -4,14 +4,15 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-import TextInput from '../TextInput';
 import Wrapper from './elements/Wrapper';
 import Section from './elements/Section';
-import Button from '../Button';
-import Label from '../Label';
+
+import Label from 'components/Label';
+import Button from 'components/Button';
+import TextInput from 'components/TextInput';
 
 function SignInForm({ handleSubmit }) {
   return (
@@ -30,7 +31,7 @@ function SignInForm({ handleSubmit }) {
 }
 
 SignInForm.propTypes = {
-  handleSubmit: React.PropTypes.func,
+  handleSubmit: PropTypes.func,
 };
 
 export default reduxForm({

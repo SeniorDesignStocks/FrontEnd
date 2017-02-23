@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { red } from '../../../styles/colors';
+import { red } from 'styles/colors';
 
 // variables
 const animationTime = 1;

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import SVG from '../../SVG';
+import SVG from 'components/SVG';
 
-import { red, lightBlue } from '../../../styles/colors';
-import { textMedium } from '../../../styles/text';
+import { red, lightBlue } from 'styles/colors';
+import { textMedium } from 'styles/text';
 
 const Wrapper = styled.div`
   font-size: ${textMedium};

@@ -33,10 +33,15 @@ class FavoriteIcon extends Component {
         }}
         type={this.getType()}
         size="small"
+
+        // activating the onhover
         onMouseEnter={() => this.changeHover(true)}
         onFocus={() => this.changeHover(true)}
+
+        // activating the onleave
         onMouseLeave={() => this.changeHover(false)}
         onBlur={() => this.changeHover(false)}
+
         {...others}
       />
     );

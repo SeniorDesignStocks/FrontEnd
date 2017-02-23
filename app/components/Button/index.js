@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { red, white } from '../../styles/colors';
-import { textMedium, font } from '../../styles/text';
+import { red, white } from 'styles/colors';
+import { textMedium, font } from 'styles/text';
 
 const Button = styled.button`
   color: ${white};

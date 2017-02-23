@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { lightBlue } from '../../../styles/colors';
+import { lightBlue } from 'styles/colors';
 
 const StockNameHighlight = styled.span`
   background-color: ${lightBlue};

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { font, textSmall } from '../../../styles/text';
+import { font, textSmall } from 'styles/text';
 
 const SearchResultStockRight = styled.span`
 

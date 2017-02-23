@@ -8,28 +8,21 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Wrapper from './elements/Wrapper';
-import SearchInput from './elements/SearchInput';
-import SearchBarFrame from './elements/SearchBarFrame';
-import SearchBarResults from './elements/SearchBarResults';
-
 import { selectSearchTerm, selectSearchResults } from './selectors';
 import { selectFavorites } from 'containers/App/selectors';
+
 import {
   addFavorite,
   unfavorite,
 } from 'containers/App/actions';
 import { changeSeachTerm } from './actions';
 
-export class SearchBar extends Component { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
+import Wrapper from './elements/Wrapper';
+import SearchInput from './elements/SearchInput';
+import SearchBarFrame from './elements/SearchBarFrame';
+import SearchBarResults from './elements/SearchBarResults';
 
-    // temp until i get this working better
-    // this.state = {
-    //   focus: false,
-    // };
-  }
+export class SearchBar extends Component {
 
   handleFocus = (focus) => {
     this.setState({ focus });
@@ -48,7 +41,7 @@ export class SearchBar extends Component { // eslint-disable-line react/prefer-s
 
     return (
       <Wrapper>
-        <SearchBarFrame style={style}>
+        <SearchBarFrame style={style} >
           <SearchInput
             type="text"
             value={searchTerm}

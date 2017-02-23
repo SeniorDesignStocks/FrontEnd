@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
-import { darkGrey, red } from '../../../styles/colors';
-import { listHighlight } from '../../../styles/mixins';
-import { textSmall, font } from '../../../styles/text';
+import { darkGrey, red } from 'styles/colors';
+import { listHighlight } from 'styles/mixins';
+import { textSmall, font } from 'styles/text';
 
 const height = '50px';
 const NavLink = styled(Link)`

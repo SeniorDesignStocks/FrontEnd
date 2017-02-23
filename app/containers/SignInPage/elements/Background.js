@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { lightGrey } from '../../../styles/colors';
+import { lightGrey } from 'styles/colors';
 
 const Background = styled.div`
   background-color: ${lightGrey};

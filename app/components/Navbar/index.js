@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import Li from './elements/CleanLi';
 import NavList from './elements/NavList';
@@ -15,7 +15,7 @@ import InnerWrapper from './elements/InnerWrapper';
 import AccountElement from './elements/AccountElement';
 import SelectedNavElement from './elements/SelectedNavElement';
 
-class Navbar extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class Navbar extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { userData } = this.props;
 
@@ -41,9 +41,9 @@ class Navbar extends React.Component { // eslint-disable-line react/prefer-state
 }
 
 Navbar.propTypes = {
-  userData: React.PropTypes.oneOfType([
-    React.PropTypes.bool,
-    React.PropTypes.object,
+  userData: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.object,
   ]),
 };
 

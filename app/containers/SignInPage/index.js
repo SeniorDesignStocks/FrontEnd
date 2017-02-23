@@ -6,8 +6,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import SignInForm from '../../components/SignInForm';
-import { signIn } from '../App/actions';
+import SignInForm from 'components/SignInForm';
+import { signIn } from 'containers/App/actions';
 
 import Background from './elements/Background';
 

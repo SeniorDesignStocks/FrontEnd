@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { pageWidth } from '../../../styles/dimensions';
+import { pageWidth } from 'styles/dimensions';
 
 const SearchBarFrame = styled.form`
   flex: 1;
@@ -16,7 +16,7 @@ const SearchBarFrame = styled.form`
   &:hover {
     box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
   }
-  
+
   border-radius: 2px;
 
   display: flex;

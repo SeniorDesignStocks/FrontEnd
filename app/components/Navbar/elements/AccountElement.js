@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { red } from '../../../styles/colors';
-import { listHighlight } from '../../../styles/mixins';
-import { textSmall, font } from '../../../styles/text';
+import { red } from 'styles/colors';
+import { listHighlight } from 'styles/mixins';
+import { textSmall, font } from 'styles/text';
 
 const height = '50px';
 const AccountElement = styled.div`

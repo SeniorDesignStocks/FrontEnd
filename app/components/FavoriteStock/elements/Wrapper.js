@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { white, grey } from '../../../styles/colors';
+import { white, grey } from 'styles/colors';
 
 const Wrapper = styled.li`
   background-color: ${white};

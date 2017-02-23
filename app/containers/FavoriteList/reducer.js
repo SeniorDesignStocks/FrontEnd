@@ -6,8 +6,6 @@
 
 import { fromJS } from 'immutable';
 import {
-  ADD_FAVORITE,
-  LOAD_FAVORITES,
   LOADED_PLOT_DATA,
 } from './constants';
 import {
@@ -43,13 +41,6 @@ const initialState = fromJS([{
 
 function favoriteListReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_FAVORITES:
-      return state
-        .set('favorites', action.favorites);
-
-    case ADD_FAVORITE:
-      return state
-        .get('favorites').push(action.newFavorite);
 
     case LOADED_PLOT_DATA:
       return state

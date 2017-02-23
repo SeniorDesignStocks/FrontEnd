@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactSVG from 'react-svg';
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ import iconStarEmpty from 'assets/svg/star-empty.svg';
 import iconStarHalf from 'assets/svg/star-half.svg';
 
 const Wrapper = styled.div`
-  
+
 `;
 
 const getPath = (type) => {
@@ -59,9 +59,9 @@ const SVG = ({ type, size, style, ...others }) => (
 );
 
 SVG.propTypes = {
-  type: React.PropTypes.string,
-  size: React.PropTypes.string,
-  style: React.PropTypes.object,
+  type: PropTypes.string,
+  size: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default SVG;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { grey } from '../../../styles/colors';
-import { font, textMedium } from '../../../styles/text';
+import { grey } from 'styles/colors';
+import { font, textMedium } from 'styles/text';
 
 const SearchResultStock = styled.li`
   font-family: ${font};

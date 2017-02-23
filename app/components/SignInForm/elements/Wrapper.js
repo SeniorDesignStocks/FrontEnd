@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { white, grey, black } from '../../../styles/colors';
+import { white, grey, black } from 'styles/colors';
 
 
 const Wrapper = styled.form`

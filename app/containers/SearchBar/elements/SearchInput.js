@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { font, textMedium } from '../../../styles/text';
+import { font, textMedium } from 'styles/text';
 
 const SearchInput = styled.input`
   height: 40px;

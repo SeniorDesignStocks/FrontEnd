@@ -5,13 +5,18 @@
  */
 
 import React, { PropTypes, Component } from 'react';
-import { connect } from 'react-redux';
-import selectFavoriteList from './selectors';
-import { selectFavorites } from '../App/selectors';
 import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
+// selectors
+import selectFavoriteList from './selectors';
+import { selectFavorites } from 'containers/App/selectors';
+
+// actions
 import { requestPlotData } from './actions';
 import { unfavorite } from 'containers/App/actions';
+
+// componetns
 import Wrapper from './elements/Wrapper';
 import FavoriteStock from 'components/FavoriteStock';
 

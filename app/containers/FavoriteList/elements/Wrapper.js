@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { pageWidth } from '../../../styles/dimensions';
+import { pageWidth } from 'styles/dimensions';
 
 const Wrapper = styled.ul`
   max-width: ${pageWidth};

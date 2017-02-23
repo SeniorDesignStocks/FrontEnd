@@ -1,9 +1,9 @@
 import { delay } from 'redux-saga';
+import { takeEvery, put } from 'redux-saga/effects';
+
 import {
   plotDataLoaded,
 } from './actions';
-import { takeEvery, put } from 'redux-saga/effects';
-
 import {
   REQUEST_PLOT_DATA,
 } from './constants';

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { darkGrey, red } from '../../../styles/colors';
-import { listHighlight } from '../../../styles/mixins';
-import { textSmall, font } from '../../../styles/text';
+
+import { darkGrey, red } from 'styles/colors';
+import { listHighlight } from 'styles/mixins';
+import { textSmall, font } from 'styles/text';
 
 const height = '50px';
-
 const NavElement = styled.li`
   color: ${darkGrey};
   text-align: center;

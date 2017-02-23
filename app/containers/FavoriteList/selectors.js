@@ -6,11 +6,6 @@ import { createSelector } from 'reselect';
 const selectFavoriteListDomain = () => (state) => state.get('favoriteList');
 
 /**
- * Other specific selectors
- */
-
-
-/**
  * Default selector used by FavoriteList
  */
 

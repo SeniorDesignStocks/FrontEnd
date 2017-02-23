@@ -4,19 +4,7 @@
 *
 */
 
-import React from 'react';
-
-import Wrapper from './elements/Wrapper';
-import TitleBar from './elements/TitleBar';
-import LoadingBar from './elements/LoadingBar';
-import LoadingElement from './elements/LoadingElement';
-import StockName from './elements/StockName';
-import StockValue from './elements/StockValue';
-import TitleBarLeft from './elements/TitleBarLeft';
-import FavoriteIcon from 'components/FavoriteIcon';
-
-import { lightBlue } from 'styles/colors';
-
+import React, { Component, PropTypes } from 'react';
 import {
   AreaChart,
   linearGradient,
@@ -26,7 +14,18 @@ import {
   YAxis,
 } from 'recharts';
 
-class FavoriteStock extends React.Component {
+import Wrapper from './elements/Wrapper';
+import TitleBar from './elements/TitleBar';
+import LoadingBar from './elements/LoadingBar';
+import LoadingElement from './elements/LoadingElement';
+import StockName from './elements/StockName';
+import StockValue from './elements/StockValue';
+import TitleBarLeft from './elements/TitleBarLeft';
+
+import FavoriteIcon from 'components/FavoriteIcon';
+import { lightBlue } from 'styles/colors';
+
+class FavoriteStock extends Component {
   componentWillMount() {
     if (this.props.info.plotData === false) {
       this.props.requestPlotData();
@@ -71,9 +70,9 @@ class FavoriteStock extends React.Component {
 }
 
 FavoriteStock.propTypes = {
-  info: React.PropTypes.object,
-  requestPlotData: React.PropTypes.func,
-  unFavorite: React.PropTypes.func,
+  info: PropTypes.object,
+  requestPlotData: PropTypes.func,
+  unFavorite: PropTypes.func,
 };
 
 export default FavoriteStock;

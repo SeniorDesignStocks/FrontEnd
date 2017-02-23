@@ -8,14 +8,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-import { selectUserData } from '../App/selectors';
 
-import SearchBar from '../SearchBar';
-import Navbar from '../../components/Navbar';
-import FavoriteList from '../FavoriteList';
+import { selectUserData } from 'containers/App/selectors';
 
+import Navbar from 'components/Navbar';
+import SearchBar from 'containers/SearchBar';
+import FavoriteList from 'containers/FavoriteList';
 import Background from './Background';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
