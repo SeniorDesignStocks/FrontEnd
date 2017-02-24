@@ -16,7 +16,7 @@ const selectStockPageDomain = () => (state) => state.get('stockPage');
 
 const selectStockPage = () => createSelector(
   selectStockPageDomain(),
-  (substate) => substate && substate.toJS()
+  (substate) => substate.toJS()
 );
 
 export default selectStockPage;

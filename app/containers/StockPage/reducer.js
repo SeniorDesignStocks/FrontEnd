@@ -6,15 +6,28 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  PLOT_DATA_SUCCESS,
+  NEWS_SUCCESS,
+  PREDICTIONS_SUCCESS,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  plotData: false,
+  news: false,
+  predictions: false,
+});
 
 function stockPageReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case PLOT_DATA_SUCCESS:
+      return state.set('plotData', action.plotData);
+
+    case NEWS_SUCCESS:
+      return state.set('news', action.news);
+
+    case PREDICTIONS_SUCCESS:
+      return state.set('predictions', action.predictions);
+
     default:
       return state;
   }

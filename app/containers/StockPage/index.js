@@ -16,25 +16,36 @@ import TitleElement from './elements/TitleElement';
 import TitleSectionWhiteSpace from './elements/TitleSectionWhiteSpace';
 import FavoriteIcon from 'components/FavoriteIcon';
 import StockGraph from 'components/StockGraph';
-import DateFilter from './elements/DateFilter';
+import DateFilterForm from 'components/DateFilterForm';
 import SectionTitle from './elements/SectionTitle';
 import NewsList from './elements/NewsList';
 import NewsElement from './elements/NewsElement';
 import NewsLink from './elements/NewsLink';
+import LoadingBar from 'components/LoadingBar';
 import H2 from 'components/H2';
 import P from 'components/P';
 
+import {
+  loadPlotData,
+  loadPredictions,
+  loadNews,
+} from './actions';
+
 export class StockPage extends Component { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    const { stockName } = this.props.params;
+    const { plotData, news, predictions } = this.props;
+    const { getPlotData, getNews, getPredictions } = this.props;
+    const load = (data, getter) => data || getter(stockName);
+
+    load(plotData, getPlotData);
+    load(predictions, getPredictions);
+    load(news, getNews);
+  }
+
   render() {
     const { stockName } = this.props.params;
-    const tempStockData = [
-      { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-      { name: 'Page B', uv: 300, pv: 4567, amt: 2400 },
-      { name: 'Page C', uv: 300, pv: 1398, amt: 2400 },
-      { name: 'Page D', uv: 200, pv: 9800, amt: 2400 },
-      { name: 'Page E', uv: 278, pv: 3908, amt: 2400 },
-      { name: 'Page F', uv: 189, pv: 4800, amt: 2400 },
-    ];
+    const { plotData, news, predictions } = this.props;
 
     return (
       <Wrapper>
@@ -51,52 +62,49 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
             <TitleSectionWhiteSpace></TitleSectionWhiteSpace>
             <TitleElement>300</TitleElement>
           </TitleSection>
-          <DateFilter>
-            <input type="date" />
-            <input type="date" />
-          </DateFilter>
-          <StockGraph data={tempStockData} />
+          <DateFilterForm />
+          { plotData
+            ? <StockGraph data={plotData} />
+            : <LoadingBar /> }
           <SectionTitle>Predicitons</SectionTitle>
+          {predictions ? '' : ''}
+
           <SectionTitle>News</SectionTitle>
-          <NewsList>
-            <NewsElement>
-              <H2>Test <NewsLink href="https://www.wsj.com/">The Wall Street Journal</NewsLink></H2>
-              <P>Welp, this is a thing.</P>
-            </NewsElement>
-            <NewsElement>
-              <H2>Test <NewsLink to="https://www.wsj.com/">The Wall Street Journal</NewsLink></H2>
-              <P>Welp, this is a thing.</P>
-            </NewsElement>
-            <NewsElement>
-              <H2>Test <NewsLink to="https://www.wsj.com/">The Wall Street Journal</NewsLink></H2>
-              <P>Welp, this is a thing.</P>
-            </NewsElement>
-            <NewsElement>
-              <H2>Test <NewsLink to="https://www.wsj.com/">The Wall Street Journal</NewsLink></H2>
-              <P>Welp, this is a thing.</P>
-            </NewsElement>
-            <NewsElement>
-              <H2>Test <NewsLink to="https://www.wsj.com/">The Wall Street Journal</NewsLink></H2>
-              <P>Welp, this is a thing.</P>
-            </NewsElement>
-          </NewsList>
+          { news
+            ? <NewsList>
+              {news.map(({ title, link, source, disc }, key) => (
+                <NewsElement key={key}>
+                  <H2>{title}<NewsLink href={link} >{source}</NewsLink></H2>
+                  <P>{disc}</P>
+                </NewsElement>
+              ))}</NewsList>
+            : <LoadingBar /> }
         </Panel>
       </Wrapper>
     );
   }
 }
 
+const { shape, string, oneOfType, object, array, bool, func } = PropTypes;
 StockPage.propTypes = {
-  params: PropTypes.shape({
-    stockName: PropTypes.string,
+  params: shape({
+    stockName: string,
   }),
+  news: oneOfType([array, bool]),
+  predictions: oneOfType([object, bool]),
+  plotData: oneOfType([array, bool]),
+  getPlotData: func,
+  getPredictions: func,
+  getNews: func,
 };
 
 const mapStateToProps = selectStockPage();
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getPlotData: (stockName) => dispatch(loadPlotData(stockName)),
+    getPredictions: (stockName) => dispatch(loadPredictions(stockName)),
+    getNews: (stockName) => dispatch(loadNews(stockName)),
   };
 }
 

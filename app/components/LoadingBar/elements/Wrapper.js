@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const LoadingBar = styled.div`
+const Wrapper = styled.div`
   height: 50px;
   line-height: 50px;
 
@@ -11,4 +11,4 @@ const LoadingBar = styled.div`
   position: relative;
 `;
 
-export default LoadingBar;
+export default Wrapper;

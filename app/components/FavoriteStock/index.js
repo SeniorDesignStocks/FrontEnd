@@ -8,8 +8,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Wrapper from './elements/Wrapper';
 import TitleBar from './elements/TitleBar';
-import LoadingBar from './elements/LoadingBar';
-import LoadingElement from './elements/LoadingElement';
+import LoadingBar from 'components/LoadingBar';
 import StockName from './elements/StockName';
 import StockValue from './elements/StockValue';
 import TitleBarLeft from './elements/TitleBarLeft';
@@ -42,7 +41,7 @@ class FavoriteStock extends Component {
           <StockValue up={stockData.up} value={stockData.value} />
         </TitleBar>
         { plotData === false
-          ? <LoadingBar><LoadingElement /></LoadingBar>
+          ? <LoadingBar />
           : <StockGraph data={plotData} />
         }
       </Wrapper>
