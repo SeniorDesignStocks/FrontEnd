@@ -60,7 +60,7 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
           <SectionTitle>News</SectionTitle>
           <NewsList>
             <NewsElement>
-              <H2>Test <NewsLink to="https://www.wsj.com/">The Wall Street Journal</NewsLink></H2>
+              <H2>Test <NewsLink href="https://www.wsj.com/">The Wall Street Journal</NewsLink></H2>
               <P>Welp, this is a thing.</P>
             </NewsElement>
             <NewsElement>

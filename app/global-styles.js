@@ -6,6 +6,7 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
+    background-color: red;
   }
 
   body {
@@ -17,7 +18,6 @@ injectGlobal`
   }
 
   #app {
-    background-color: red;
     min-height: 100%;
     min-width: 100%;
   }

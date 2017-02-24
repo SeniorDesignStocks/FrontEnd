@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import { Link } from 'react-router';
 
+import A from 'components/A';
 import { textVerySmall } from 'styles/text';
-import { lightBlue } from 'styles/colors';
 
-const NewsLink = styled(Link)`
-  color: ${lightBlue};
+const NewsLink = styled(A)`
   font-size: ${textVerySmall};
   float: right;
 `;
