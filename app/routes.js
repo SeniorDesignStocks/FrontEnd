@@ -4,6 +4,10 @@
 // about the code splitting business
 import { getAsyncInjectors } from 'utils/asyncInjectors';
 
+import Home from 'routes/Home';
+import StockPage from 'routes/StockPage';
+import SignInPage from 'routes/SignInPage';
+
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
 };
@@ -15,48 +19,13 @@ const loadModule = (cb) => (componentModule) => {
 export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
+  const createRoute = (path, route) => route(path, { loadModule, errorLoading, injectReducer, injectSagas });
 
   return [
+    createRoute('/', Home),
+    createRoute('/sign-in', SignInPage),
+    createRoute('/stock/:stockName', StockPage),
     {
-      path: '/',
-      name: 'home',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/SearchBar/reducer'),
-          System.import('containers/FavoriteList/reducer'),
-          System.import('containers/FavoriteList/sagas'),
-          System.import('containers/HomePage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducerSearchBar, reducerFavoriteList, sagas, component]) => {
-          injectReducer('searchBar', reducerSearchBar.default);
-          injectReducer('favoriteList', reducerFavoriteList.default);
-          injectSagas(sagas.default);
-
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
-      path: '/sign-in',
-      name: 'signIn',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/SignInPage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
