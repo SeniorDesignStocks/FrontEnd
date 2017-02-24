@@ -1,5 +1,4 @@
 import { injectGlobal } from 'styled-components';
-import { lightGrey } from 'styles/colors';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -18,7 +17,7 @@ injectGlobal`
   }
 
   #app {
-    background-color: ${lightGrey};
+    background-color: red;
     min-height: 100%;
     min-width: 100%;
   }

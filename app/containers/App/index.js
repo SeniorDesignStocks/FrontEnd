@@ -12,6 +12,17 @@
  */
 
 import React from 'react';
+import styled from 'styled-components';
+
+import { lightGrey, black } from 'styles/colors';
+import { font } from 'styles/text';
+
+const Wrapper = styled.div`
+  background-color: ${lightGrey};
+  min-height: 100vh;
+  font-family: ${font};
+  color: ${black};
+`;
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -21,9 +32,9 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <div>
+      <Wrapper>
         {React.Children.toArray(this.props.children)}
-      </div>
+      </Wrapper>
     );
   }
 }
