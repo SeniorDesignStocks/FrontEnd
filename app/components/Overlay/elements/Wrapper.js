@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const Overlay = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -16,4 +16,4 @@ const Wrapper = styled.div`
   padding: 100px 0;
 `;
 
-export default Wrapper;
+export default Overlay;

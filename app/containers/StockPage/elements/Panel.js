@@ -8,7 +8,8 @@ const Panel = styled.section`
   border: 1px solid ${grey};
   border-radius: 2px;
   width: ${pageWidth};
-  margin: 5px;
+  margin-bottom: 5px 0 100px 0;
+  display: table;
 `;
 
 export default Panel;

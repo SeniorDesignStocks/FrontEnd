@@ -16,6 +16,12 @@ const loadModule = (cb) => (componentModule) => {
   cb(null, componentModule.default);
 };
 
+const overlayRoutes = [
+  /\/stock\/[A-Z]*/,
+  /\/sign-in/,
+];
+export const shouldOverlay = (pathName) => overlayRoutes.map((regex) => regex.test(pathName)).reduce((a, b) => a || b);
+
 export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars

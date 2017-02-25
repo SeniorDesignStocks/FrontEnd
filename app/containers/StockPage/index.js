@@ -9,7 +9,8 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import selectStockPage from './selectors';
 
-import Wrapper from './elements/Wrapper';
+import Wrapper from 'components/defaultWrapper';
+import Overlay from 'components/Overlay';
 import Panel from './elements/Panel';
 import TitleSection from './elements/TitleSection';
 import TitleElement from './elements/TitleElement';
@@ -47,10 +48,11 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
 
   render() {
     const { stockName } = this.props.params;
-    const { plotData, news, predictions, stockData } = this.props;
+    const { plotData, news, predictions, stockData, isOverlay, oldPathName } = this.props;
+    const ElemWrapper = isOverlay ? Overlay : Wrapper;
 
     return (
-      <Wrapper>
+      <ElemWrapper oldPathName={oldPathName} >
         <Helmet
           title="StockPage"
           meta={[
@@ -82,7 +84,7 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
               ))}</NewsList>
             : <LoadingBar /> }
         </Panel>
-      </Wrapper>
+      </ElemWrapper>
     );
   }
 }
@@ -93,6 +95,8 @@ StockPage.propTypes = {
   params: shape({
     stockName: string,
   }),
+  isOverlay: bool,
+  oldPathName: string,
 
   // data to be loaded
   news: oneOfType([array, bool]),

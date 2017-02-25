@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { selectUserData } from './selectors';
 import { createStructuredSelector } from 'reselect';
+import { shouldOverlay } from 'routes';
 
 import Navbar from 'components/Navbar';
 import SearchBar from 'containers/SearchBar';
@@ -20,30 +21,59 @@ const Wrapper = styled.div`
 class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
-    children: React.PropTypes.node,
+    children: PropTypes.node,
+    userData: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.object,
+    ]),
+    location: PropTypes.object,
   };
+
+  componentWillReceiveProps(nextProps) {
+    const newPathName = nextProps.location.pathname;
+    const curPathName = this.props.location.pathname;
+
+    if (!shouldOverlay(curPathName) && shouldOverlay(newPathName)) {
+      this.previousChildren = {
+        oldPathName: curPathName,
+        children: this.props.children,
+      };
+    } else if (!shouldOverlay(newPathName)) {
+      this.previousChildren = {
+        oldPathName: false,
+        children: false,
+      };
+    }
+  }
+  previousChildren = {
+    oldPathName: false,
+    children: false,
+  }
 
   render() {
     const { userData, location } = this.props;
+    const { children, oldPathName } = this.previousChildren;
     const { pathname } = location;
 
     return (
       <Wrapper>
         <SearchBar />
         <Navbar pathName={pathname} userData={userData} />
-        {React.Children.toArray(this.props.children)}
+
+        {React.Children.map(
+          this.props.children,
+          (child) => React.cloneElement(child, {
+            isOverlay: Boolean(children),
+            oldPathName,
+          }))}
+
+        {children
+          ? React.Children.toArray(children)
+          : '' }
       </Wrapper>
     );
   }
 }
-
-App.propTypes = {
-  userData: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.object,
-  ]),
-  location: PropTypes.object,
-};
 
 export default connect(createStructuredSelector({
   userData: selectUserData(),
