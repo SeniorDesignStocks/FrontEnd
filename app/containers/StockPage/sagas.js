@@ -1,15 +1,18 @@
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLatest, put, take, cancel } from 'redux-saga/effects';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   REQUEST_PLOT_DATA,
   REQUEST_NEWS,
   REQUEST_PREDICTIONS,
+  REQUEST_STOCK_DATA,
 } from './constants';
 
 import {
   plotDataSuccess,
   predictionsSuccess,
   newsSuccess,
+  stockDataSuccess,
 } from './actions';
 
 export function* loadPlotData() {
@@ -23,16 +26,8 @@ export function* loadPlotData() {
   ]));
 }
 
-export function* plotData() {
-  yield takeLatest(REQUEST_PLOT_DATA, loadPlotData);
-}
-
 export function* loadPredictions() {
   yield put(predictionsSuccess({}));
-}
-
-export function* news() {
-  yield takeLatest(REQUEST_NEWS, loadNews);
 }
 
 export function* loadNews() {
@@ -65,8 +60,40 @@ export function* loadNews() {
   }]));
 }
 
+export function* loadStockData() {
+  yield put(stockDataSuccess({ value: 300 }));
+}
+
+export function* plotData() {
+  const watcher = yield takeLatest(REQUEST_PLOT_DATA, loadPlotData);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+export function* news() {
+  const watcher = yield takeLatest(REQUEST_NEWS, loadNews);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
 export function* predictions() {
-  yield takeLatest(REQUEST_PREDICTIONS, loadPredictions);
+  const watcher = yield takeLatest(REQUEST_PREDICTIONS, loadPredictions);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+export function* stockData() {
+  const watcher = yield takeLatest(REQUEST_STOCK_DATA, loadStockData);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 
@@ -74,4 +101,5 @@ export default [
   plotData,
   predictions,
   news,
+  stockData,
 ];

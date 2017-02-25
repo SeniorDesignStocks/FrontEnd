@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { red, white } from 'styles/colors';
 
 import DateInput from 'components/DateInput';
+import SVG from 'components/SVG';
 
 const Wrapper = styled.form`
   margin: 10px;
@@ -18,12 +19,14 @@ const FilterActiveFlag = styled.div`
   color: ${white};
   padding: 0 10px;
   border-radius: 2px;
+  display: flex;
+  flex-direction: row;
 `;
 
 class DateFilterForm extends Component {
   initialState = {}
   ComponentDidMount() {
-    this.initialState = props;
+    this.initialState = this.props;
   }
 
   render() {
@@ -32,7 +35,10 @@ class DateFilterForm extends Component {
         <Field name="startTime" component={DateInput} type="date" />
         <Field name="endTime" component={DateInput} type="date" />
 
-        <FilterActiveFlag>Remove Filter X</FilterActiveFlag>
+        <FilterActiveFlag>
+          Remove Filter
+          <SVG type="cross" size="small" style={{ margin: '0 0 3px 5px' }} />
+        </FilterActiveFlag>
       </Wrapper>
     );
   }

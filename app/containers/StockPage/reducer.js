@@ -9,12 +9,14 @@ import {
   PLOT_DATA_SUCCESS,
   NEWS_SUCCESS,
   PREDICTIONS_SUCCESS,
+  STOCK_DATA_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
   plotData: false,
   news: false,
   predictions: false,
+  stockData: false,
 });
 
 function stockPageReducer(state = initialState, action) {
@@ -27,6 +29,9 @@ function stockPageReducer(state = initialState, action) {
 
     case PREDICTIONS_SUCCESS:
       return state.set('predictions', action.predictions);
+
+    case STOCK_DATA_SUCCESS:
+      return state.set('stockData', action.stockData);
 
     default:
       return state;

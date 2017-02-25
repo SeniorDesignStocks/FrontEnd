@@ -1,10 +1,17 @@
 import styled from 'styled-components';
-import { textMedium } from 'styles/text';
-import { black } from 'styles/colors';
+import { Link } from 'react-router';
 
-const StockName = styled.div`
+import { textMedium } from 'styles/text';
+import { black, lightBlue } from 'styles/colors';
+
+const StockName = styled(Link)`
   font-size: ${textMedium};
   color: ${black};
+  text-decoration: none;
+
+  &:hover {
+    color: ${lightBlue};
+  }
 `;
 
 export default StockName;

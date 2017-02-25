@@ -7,6 +7,7 @@ import iconArrowDown from 'assets/svg/arrow-down.svg';
 import iconStarFull from 'assets/svg/star-full.svg';
 import iconStarEmpty from 'assets/svg/star-empty.svg';
 import iconStarHalf from 'assets/svg/star-half.svg';
+import iconCross from 'assets/svg/cross.svg';
 
 const Wrapper = styled.div`
 
@@ -19,6 +20,7 @@ const getPath = (type) => {
     case 'star-full': return iconStarFull;
     case 'star-empty': return iconStarEmpty;
     case 'star-half': return iconStarHalf;
+    case 'cross': return iconCross;
 
     default:
       console.error(`unable to find SVG: ${type}`);
@@ -26,7 +28,7 @@ const getPath = (type) => {
   }
 };
 
-const getStyle = (size, style) => {
+const getStyle = (size, style = { margin: '0 0 3px 0' }) => {
   let dimen = '';
 
   switch (size) {

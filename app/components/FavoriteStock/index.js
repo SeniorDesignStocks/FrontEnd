@@ -36,7 +36,7 @@ class FavoriteStock extends Component {
         <TitleBar>
           <TitleBarLeft>
             <FavoriteIcon favorited={favorited} onClick={this.props.unFavorite} />
-            <StockName>{name}</StockName>
+            <StockName to={`/stock/${name}`}>{name}</StockName>
           </TitleBarLeft>
           <StockValue up={stockData.up} value={stockData.value} />
         </TitleBar>

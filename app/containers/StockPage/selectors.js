@@ -5,15 +5,6 @@ import { createSelector } from 'reselect';
  */
 const selectStockPageDomain = () => (state) => state.get('stockPage');
 
-/**
- * Other specific selectors
- */
-
-
-/**
- * Default selector used by StockPage
- */
-
 const selectStockPage = () => createSelector(
   selectStockPageDomain(),
   (substate) => substate.toJS()

@@ -16,22 +16,45 @@ import AccountElement from './elements/AccountElement';
 import SelectedNavElement from './elements/SelectedNavElement';
 
 class Navbar extends Component { // eslint-disable-line react/prefer-stateless-function
+  routes = [{
+    pathName: '/',
+    name: 'Favorites',
+  }, {
+    pathName: '/growth',
+    name: 'Growth',
+  }, {
+    pathName: '/loss',
+    name: 'Loss',
+  }]
+
   render() {
-    const { userData } = this.props;
+    const { userData, pathName } = this.props;
 
     return (
       <OuterWrapper>
         <InnerWrapper>
           {/* List of Links to different pages within the app */}
           <NavList>
-            <SelectedNavElement>Favorites</SelectedNavElement>
-            <Li><NavLink to={'/growth'}>Growth</NavLink></Li>
-            <Li><NavLink to={'/loss'}>Loss</NavLink></Li>
+            {this.routes.map((route, key) => {
+              if (route.pathName === pathName) {
+                return (
+                  <SelectedNavElement key={key}>
+                    {route.name}
+                  </SelectedNavElement>
+                );
+              }
+
+              return (
+                <Li key={key}><NavLink to={route.pathName}>
+                  {route.name}
+                </NavLink></Li>
+              );
+            })}
           </NavList>
 
           {/* Handles account functions within the application */}
           { userData
-            ? <AccountElement>{userData.username}</AccountElement>
+            ? <LoginLink to={'/account'}>{userData.username}</LoginLink>
             : <LoginLink to={'/sign-in'}>Log In</LoginLink>
           }
         </InnerWrapper>
@@ -45,6 +68,7 @@ Navbar.propTypes = {
     PropTypes.bool,
     PropTypes.object,
   ]),
+  pathName: PropTypes.string,
 };
 
 export default Navbar;

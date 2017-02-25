@@ -1,19 +1,12 @@
-/**
- *
- * App.react.js
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
- */
-
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 
+import { connect } from 'react-redux';
+import { selectUserData } from './selectors';
+import { createStructuredSelector } from 'reselect';
+
+import Navbar from 'components/Navbar';
+import SearchBar from 'containers/SearchBar';
 import { lightGrey, black } from 'styles/colors';
 import { font } from 'styles/text';
 
@@ -24,17 +17,34 @@ const Wrapper = styled.div`
   color: ${black};
 `;
 
-export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     children: React.PropTypes.node,
   };
 
   render() {
+    const { userData, location } = this.props;
+    const { pathname } = location;
+
     return (
       <Wrapper>
+        <SearchBar />
+        <Navbar pathName={pathname} userData={userData} />
         {React.Children.toArray(this.props.children)}
       </Wrapper>
     );
   }
 }
+
+App.propTypes = {
+  userData: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.object,
+  ]),
+  location: PropTypes.object,
+};
+
+export default connect(createStructuredSelector({
+  userData: selectUserData(),
+}))(App);

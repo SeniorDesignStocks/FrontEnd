@@ -26,26 +26,28 @@ import H2 from 'components/H2';
 import P from 'components/P';
 
 import {
-  loadPlotData,
-  loadPredictions,
-  loadNews,
+  requestPlotData,
+  requestPredictions,
+  requestNews,
+  requestStockData,
 } from './actions';
 
 export class StockPage extends Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
     const { stockName } = this.props.params;
-    const { plotData, news, predictions } = this.props;
-    const { getPlotData, getNews, getPredictions } = this.props;
+    const { plotData, news, predictions, stockData } = this.props;
+    const { getPlotData, getNews, getPredictions, getStockData } = this.props;
     const load = (data, getter) => data || getter(stockName);
 
     load(plotData, getPlotData);
     load(predictions, getPredictions);
     load(news, getNews);
+    load(stockData, getStockData);
   }
 
   render() {
     const { stockName } = this.props.params;
-    const { plotData, news, predictions } = this.props;
+    const { plotData, news, predictions, stockData } = this.props;
 
     return (
       <Wrapper>
@@ -60,7 +62,7 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
             <FavoriteIcon favorited />
             <TitleElement>{stockName}</TitleElement>
             <TitleSectionWhiteSpace></TitleSectionWhiteSpace>
-            <TitleElement>300</TitleElement>
+            <TitleElement>{stockData ? stockData.value : '~'}</TitleElement>
           </TitleSection>
           <DateFilterForm />
           { plotData
@@ -87,24 +89,32 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
 
 const { shape, string, oneOfType, object, array, bool, func } = PropTypes;
 StockPage.propTypes = {
+  // stock name from route
   params: shape({
     stockName: string,
   }),
+
+  // data to be loaded
   news: oneOfType([array, bool]),
   predictions: oneOfType([object, bool]),
   plotData: oneOfType([array, bool]),
+  stockData: oneOfType([object, bool]),
+
+  // dispatchers
   getPlotData: func,
   getPredictions: func,
   getNews: func,
+  getStockData: func,
 };
 
 const mapStateToProps = selectStockPage();
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPlotData: (stockName) => dispatch(loadPlotData(stockName)),
-    getPredictions: (stockName) => dispatch(loadPredictions(stockName)),
-    getNews: (stockName) => dispatch(loadNews(stockName)),
+    getPlotData: (stockName) => dispatch(requestPlotData(stockName)),
+    getPredictions: (stockName) => dispatch(requestPredictions(stockName)),
+    getNews: (stockName) => dispatch(requestNews(stockName)),
+    getStockData: (stockName) => dispatch(requestStockData(stockName)),
   };
 }
 
