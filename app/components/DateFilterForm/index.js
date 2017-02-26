@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { red, white } from 'styles/colors';
+import { inputFocus } from 'styles/mixins';
 
 import DateInput from 'components/DateInput';
 import SVG from 'components/SVG';
@@ -21,6 +22,8 @@ const FilterActiveFlag = styled.div`
   border-radius: 2px;
   display: flex;
   flex-direction: row;
+
+  ${inputFocus}
 `;
 
 class DateFilterForm extends Component {

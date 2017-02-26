@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { textSmall, font } from '../../styles/text';
-import { lightGrey, grey, red } from '../../styles/colors';
+import { textSmall, font } from 'styles/text';
+import { lightGrey, grey } from 'styles/colors';
+import { inputFocus } from 'styles/mixins';
 
 const Wrapper = styled.input`
   outline: none;
@@ -9,9 +10,6 @@ const Wrapper = styled.input`
   background-color: ${lightGrey};
   padding: 0 10px;
   margin: 0 5px;
-  &:focus {
-    border-color: ${red};
-  }
 
   width: 200px;
   border-radius: 2px;
@@ -19,6 +17,8 @@ const Wrapper = styled.input`
 
   font-family: ${font};
   font-size: ${textSmall};
+
+  ${inputFocus}
 `;
 
 const DateInput = (field) => (

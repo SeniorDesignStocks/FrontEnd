@@ -1,3 +1,5 @@
+import { red } from './colors';
+
 export const listHighlight = (color, type) => {
   if (type === 'hover') {
     return `
@@ -44,3 +46,14 @@ export const listHighlight = (color, type) => {
   }
   `;
 };
+
+export const inputFocus = () => `
+  transition: 0.25s ease;
+  &:hover {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  &:focus {
+    border-color: ${red};
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+`;

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { red, white } from 'styles/colors';
 import { textMedium, font } from 'styles/text';
+import { inputFocus } from 'styles/mixins';
 
 const Button = styled.button`
   color: ${white};
@@ -12,6 +13,8 @@ const Button = styled.button`
   outline: none;
   height: 40px;
   width: 300px;
+
+  ${inputFocus}
 `;
 
 export default Button;
