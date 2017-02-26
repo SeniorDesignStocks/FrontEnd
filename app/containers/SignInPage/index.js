@@ -6,6 +6,11 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import {
+  selectErrorMessage,
+} from 'containers/App/selectors';
+
 import SignInForm from 'components/SignInForm';
 import { signIn } from 'containers/App/actions';
 
@@ -14,13 +19,15 @@ import Overlay from './elements/Overlay';
 export class SignInPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   handleSubmit = (values) => {
     const userData = values.toJS();
-    this.props.handleSignIn({ ...userData, favorites: ['AAPL', 'AASS', 'GOOG'] });
+    this.props.handleSignIn(userData);
   }
 
   render() {
+    const { errorMessage } = this.props;
+
     return (
       <Overlay oldPathName={this.props.oldPathName}>
-        <SignInForm onSubmit={this.handleSubmit} />
+        <SignInForm errorMessage={errorMessage} onSubmit={this.handleSubmit} />
       </Overlay>
     );
   }
@@ -29,12 +36,17 @@ export class SignInPage extends React.PureComponent { // eslint-disable-line rea
 SignInPage.propTypes = {
   handleSignIn: PropTypes.func,
   oldPathName: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
+
+const mapStatetoProps = createStructuredSelector({
+  errorMessage: selectErrorMessage(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleSignIn: (userData) => dispatch(signIn(userData)),
+    handleSignIn: (loginInfo) => dispatch(signIn(loginInfo)),
   };
 }
 
-export default connect(null, mapDispatchToProps)(SignInPage);
+export default connect(mapStatetoProps, mapDispatchToProps)(SignInPage);

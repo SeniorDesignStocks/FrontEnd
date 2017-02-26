@@ -14,8 +14,18 @@ export const DEFAULT_LOCALE = 'en';
 const route = 'StockApp/App/';
 export const DISPLAY_ERROR = `${route}DISPLAY_ERROR`;
 export const REMOVE_ERROR = `${route}REMOVE_ERROR`;
+
 export const SIGN_IN = `${route}SIGN_IN`;
+export const SIGN_IN_SUCCESS = `${route}SIGN_IN_SUCCESS`;
+export const SIGN_IN_FAILURE = `${route}SIGN_IN_FAILURE`;
+
+export const SIGN_UP = `${route}SIGN_UP`;
+export const SIGN_UP_SUCCESS = `${route}SIGN_UP_SUCCESS`;
+export const SIGN_UP_FAILURE = `${route}SIGN_UP_FAILURE`;
+
 export const SIGN_OUT = `${route}SIGN_OUT`;
+export const SIGN_OUT_SUCCESS = `${route}SIGN_OUT_SUCCESS`;
+export const SIGN_OUT_FAILURE = `${route}SIGN_OUT_FAILURE`;
 
 export const UNFAVORITE = `${route}UNFAVORITE`;
 export const UNFAVORITE_SUCCESS = `${route}UNFAVORITE_SUCCESS`;

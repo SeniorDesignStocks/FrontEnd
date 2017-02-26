@@ -2,7 +2,8 @@ import { fromJS } from 'immutable';
 import {
   DISPLAY_ERROR,
   REMOVE_ERROR,
-  SIGN_IN,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
   SIGN_OUT,
   UNFAVORITE_SUCCESS,
   ADDFAVORITE_SUCCESS,
@@ -10,7 +11,7 @@ import {
 
 const initialState = fromJS({
   userData: false,
-  error: false,
+  error: '',
 });
 
 function appReducer(state = initialState, action) {
@@ -25,9 +26,15 @@ function appReducer(state = initialState, action) {
         .set('error', false);
 
     // handlers for user signing
-    case SIGN_IN:
+    case SIGN_IN_SUCCESS:
+      console.log(action);
       return state
         .set('userData', fromJS(action.userData));
+    case SIGN_IN_FAILURE:
+      console.log(action);
+      return state
+        .set('error', action.message);
+
     case SIGN_OUT:
       return state
         .set('userData', false);
