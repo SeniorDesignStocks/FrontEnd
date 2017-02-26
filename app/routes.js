@@ -8,6 +8,14 @@ import Home from 'routes/Home';
 import StockPage from 'routes/StockPage';
 import SignInPage from 'routes/SignInPage';
 
+// handles adding routes to the overlay list
+const overlayRoutes = [
+  /\/stock\/[A-Z]*/,
+  /\/sign-in/,
+];
+export const shouldOverlay = (pathName) => overlayRoutes.map((regex) =>
+    regex.test(pathName)).reduce((a, b) => a || b);
+
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
 };
@@ -16,16 +24,11 @@ const loadModule = (cb) => (componentModule) => {
   cb(null, componentModule.default);
 };
 
-const overlayRoutes = [
-  /\/stock\/[A-Z]*/,
-  /\/sign-in/,
-];
-export const shouldOverlay = (pathName) => overlayRoutes.map((regex) => regex.test(pathName)).reduce((a, b) => a || b);
-
 export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
-  const createRoute = (path, route) => route(path, { loadModule, errorLoading, injectReducer, injectSagas });
+  const createRoute = (path, route) =>
+    route(path, { loadModule, errorLoading, injectReducer, injectSagas });
 
   return [
     createRoute('/', Home),

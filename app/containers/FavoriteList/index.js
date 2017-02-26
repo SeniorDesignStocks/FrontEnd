@@ -16,9 +16,10 @@ import { selectFavorites } from 'containers/App/selectors';
 import { requestPlotData } from './actions';
 import { unfavorite } from 'containers/App/actions';
 
-// componetns
+// components
 import Wrapper from './elements/Wrapper';
 import FavoriteStock from 'components/FavoriteStock';
+import LogInMessage from 'components/LogInMessage';
 
 export class FavoriteList extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -35,7 +36,7 @@ export class FavoriteList extends Component { // eslint-disable-line react/prefe
         />
       );
     } else {
-      content = <div>You are not Logged In</div>;
+      content = <LogInMessage />;
     }
 
     return (
