@@ -4,12 +4,12 @@
  *
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SignInForm from 'components/SignInForm';
 import { signIn } from 'containers/App/actions';
 
-import Background from './elements/Background';
+import Overlay from './elements/Overlay';
 
 export class SignInPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   handleSubmit = (values) => {
@@ -19,15 +19,16 @@ export class SignInPage extends React.PureComponent { // eslint-disable-line rea
 
   render() {
     return (
-      <Background>
+      <Overlay oldPathName={this.props.oldPathName}>
         <SignInForm onSubmit={this.handleSubmit} />
-      </Background>
+      </Overlay>
     );
   }
 }
 
 SignInPage.propTypes = {
-  handleSignIn: React.PropTypes.func,
+  handleSignIn: PropTypes.func,
+  oldPathName: PropTypes.string,
 };
 
 function mapDispatchToProps(dispatch) {

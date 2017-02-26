@@ -1,12 +1,12 @@
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { grey } from 'styles/colors';
+import { grey, black } from 'styles/colors';
 import { font, textMedium } from 'styles/text';
+import { Link } from 'react-router';
 
-const SearchResultStock = styled.li`
+const Wrapper = styled.li`
   font-family: ${font};
   font-size: ${textMedium};
-  display: flex;
-  flex-direction: row;
 
   height: 40px;
   line-height: 40px;
@@ -19,4 +19,24 @@ const SearchResultStock = styled.li`
   }
 `;
 
-export default SearchResultStock;
+const StockLink = styled(Link)`
+  display: flex;
+  flex-direction: row;
+  color: ${black};
+  text-decoration: none;
+`;
+
+const SearchBarListItem = ({ stockName, children, ...props }) => (
+  <Wrapper {...props}>
+    <StockLink to={`/stock/${stockName}`}>
+      {React.Children.toArray(children)}
+    </StockLink>
+  </Wrapper>
+);
+
+SearchBarListItem.propTypes = {
+  stockName: PropTypes.string,
+  children: PropTypes.node,
+};
+
+export default SearchBarListItem;

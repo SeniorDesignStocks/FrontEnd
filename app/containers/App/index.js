@@ -40,13 +40,13 @@ class App extends React.PureComponent { // eslint-disable-line react/prefer-stat
       };
     } else if (!shouldOverlay(newPathName)) {
       this.previousChildren = {
-        oldPathName: false,
+        oldPathName: '',
         children: false,
       };
     }
   }
   previousChildren = {
-    oldPathName: false,
+    oldPathName: '',
     children: false,
   }
 
@@ -54,16 +54,17 @@ class App extends React.PureComponent { // eslint-disable-line react/prefer-stat
     const { userData, location } = this.props;
     const { children, oldPathName } = this.previousChildren;
     const { pathname } = location;
+    const isOverlay = Boolean(children);
 
     return (
-      <Wrapper>
+      <Wrapper style={isOverlay ? { overflow: 'hidden', height: '100vh' } : {}}>
         <SearchBar />
         <Navbar pathName={pathname} userData={userData} />
 
         {React.Children.map(
           this.props.children,
           (child) => React.cloneElement(child, {
-            isOverlay: Boolean(children),
+            isOverlay,
             oldPathName,
           }))}
 

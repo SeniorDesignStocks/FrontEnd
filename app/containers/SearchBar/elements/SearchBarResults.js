@@ -29,12 +29,16 @@ class SearchBarResults extends Component {
     const { results, searchTerm, favorites, setFavorite } = this.props;
 
     const createList = (favorited) => (name, key) => (
-      <SearchBarListItem key={key}>
+      <SearchBarListItem stockName={name} key={key}>
         { isUndefined(favorited)
             ? ''
             : <FavoriteIcon
               favorited={favorited}
-              onClick={() => setFavorite(name, !favorited)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setFavorite(name, !favorited);
+              }}
             /> }
         {this.createName(name, searchTerm)}
         <SearchBarListItemRight>Pred: test</SearchBarListItemRight>

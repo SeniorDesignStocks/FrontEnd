@@ -52,7 +52,7 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
     const ElemWrapper = isOverlay ? Overlay : Wrapper;
 
     return (
-      <ElemWrapper oldPathName={oldPathName} >
+      <ElemWrapper oldPathName={oldPathName}>
         <Helmet
           title="StockPage"
           meta={[

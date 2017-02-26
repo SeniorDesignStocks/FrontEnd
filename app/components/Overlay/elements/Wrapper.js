@@ -14,6 +14,7 @@ const Overlay = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 100px 0;
+  pointer-events: all;
 `;
 
 export default Overlay;
