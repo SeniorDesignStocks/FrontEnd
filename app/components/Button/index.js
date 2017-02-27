@@ -13,6 +13,7 @@ const Button = styled.button`
   outline: none;
   height: 40px;
   width: 300px;
+  margin-bottom: 20px;
 
   ${inputFocus}
 `;

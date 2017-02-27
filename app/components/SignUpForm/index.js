@@ -1,42 +1,57 @@
 /**
 *
-* SignInForm
+* SignUpForm
 *
 */
 
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { Link } from 'react-router';
 
 import Wrapper from './elements/Wrapper';
 import Section from './elements/Section';
 import ErrorMessage from './elements/ErrorMessage';
 
-import Label from 'components/Label';
 import Button from 'components/Button';
 import TextInput from 'components/TextInput';
+import Label from 'components/Label';
 
-function SignInForm({ handleSubmit, errorMessage }) {
+const makeErrorMessage = (message) => {
+  if (message === '') return message;
+
+  return <ErrorMessage>{message}</ErrorMessage>;
+};
+
+function SignUpForm({ handleSubmit, errors }) {
+  const { username, email, password } = errors;
+
   return (
     <Wrapper onSubmit={handleSubmit}>
       <Section>
         <Label htmlFor="username">Username</Label>
         <Field name="username" autoFocus component={TextInput} type="text" />
+        {makeErrorMessage(username)}
+      </Section>
+      <Section>
+        <Label htmlFor="email">Email</Label>
+        <Field name="email" component={TextInput} type="text" />
+        {makeErrorMessage(email)}
       </Section>
       <Section>
         <Label htmlFor="password">Password</Label>
         <Field name="password" component={TextInput} type="text" />
+        {makeErrorMessage(password)}
       </Section>
-      <ErrorMessage>{errorMessage}</ErrorMessage>
-      <Button type="submit" className="button-primary">Sign In</Button>
+      <Button type="submit">Sign Up</Button>
     </Wrapper>
   );
 }
 
-SignInForm.propTypes = {
+SignUpForm.propTypes = {
+  errors: PropTypes.object,
   handleSubmit: PropTypes.func,
-  errorMessage: PropTypes.string,
 };
 
 export default reduxForm({
-  form: 'signIn',
-})(SignInForm);
+  form: 'signUp',
+})(SignUpForm);

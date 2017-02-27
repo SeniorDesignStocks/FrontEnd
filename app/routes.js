@@ -7,11 +7,13 @@ import { getAsyncInjectors } from 'utils/asyncInjectors';
 import Home from 'routes/Home';
 import StockPage from 'routes/StockPage';
 import SignInPage from 'routes/SignInPage';
+import SignUpPage from 'routes/SignUpPage';
 
 // handles adding routes to the overlay list
 const overlayRoutes = [
   /\/stock\/[A-Z]*/,
   /\/sign-in/,
+  /\/sign-up/,
 ];
 export const shouldOverlay = (pathName) => overlayRoutes.map((regex) =>
     regex.test(pathName)).reduce((a, b) => a || b);
@@ -33,6 +35,7 @@ export default function createRoutes(store) {
   return [
     createRoute('/', Home),
     createRoute('/sign-in', SignInPage),
+    createRoute('/sign-up', SignUpPage),
     createRoute('/stock/:stockName', StockPage),
     {
       path: '*',

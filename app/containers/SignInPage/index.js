@@ -23,10 +23,10 @@ export class SignInPage extends React.PureComponent { // eslint-disable-line rea
   }
 
   render() {
-    const { errorMessage } = this.props;
+    const { errorMessage, oldPathName } = this.props;
 
     return (
-      <Overlay oldPathName={this.props.oldPathName}>
+      <Overlay oldPathName={oldPathName}>
         <SignInForm errorMessage={errorMessage} onSubmit={this.handleSubmit} />
       </Overlay>
     );

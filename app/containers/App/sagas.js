@@ -10,7 +10,6 @@ import {
   UNFAVORITE,
   ADDFAVORITE,
   SIGN_IN,
-  SIGN_UP,
 } from './constants';
 
 export function* putUnfavorite({ stockName }) {
@@ -43,10 +42,6 @@ export function* getUserData({ username, password }) {
 
 export function* signIn() {
   yield takeLatest(SIGN_IN, getUserData);
-}
-
-export function* signUp() {
-  yield takeLatest(SIGN_UP, postNewAccount);
 }
 
 export default [

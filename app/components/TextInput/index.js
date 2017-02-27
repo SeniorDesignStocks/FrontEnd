@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import styled from 'styled-components';
 import { textSmall, font } from '../../styles/text';
 import { lightGrey, grey } from '../../styles/colors';
@@ -20,8 +20,25 @@ const Input = styled.input`
   ${inputFocus}
 `;
 
-const TextInput = (field) => (
-  <Input {...field.input} type="text" />
-);
+class TextInput extends Component {
+  componentDidMount() {
+    if (this.props.autoFocus) {
+      this.node.focus();
+    }
+  }
+
+  render() {
+    const { input } = this.props;
+
+    return (
+      <Input {...input} innerRef={(node) => { this.node = node; }} type="text" />
+    );
+  }
+}
+
+TextInput.propTypes = {
+  input: PropTypes.object,
+  autoFocus: PropTypes.bool,
+};
 
 export default TextInput;
