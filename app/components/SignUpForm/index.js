@@ -6,7 +6,6 @@
 
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { Link } from 'react-router';
 
 import Wrapper from './elements/Wrapper';
 import Section from './elements/Section';

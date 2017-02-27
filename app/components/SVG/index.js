@@ -23,7 +23,6 @@ const getPath = (type) => {
     case 'cross': return iconCross;
 
     default:
-      console.error(`unable to find SVG: ${type}`);
       return '';
   }
 };

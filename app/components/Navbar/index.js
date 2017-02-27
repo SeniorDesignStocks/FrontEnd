@@ -12,7 +12,6 @@ import NavLink from './elements/NavLink';
 import LoginLink from './elements/LoginLink';
 import OuterWrapper from './elements/OuterWrapper';
 import InnerWrapper from './elements/InnerWrapper';
-import AccountElement from './elements/AccountElement';
 import SelectedNavElement from './elements/SelectedNavElement';
 
 class Navbar extends Component { // eslint-disable-line react/prefer-stateless-function

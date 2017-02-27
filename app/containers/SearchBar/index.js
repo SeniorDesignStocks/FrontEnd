@@ -25,7 +25,6 @@ import SearchBarResults from './elements/SearchBarResults';
 export class SearchBar extends Component {
 
   selectResult = () => {
-    console.log('test');
     this.props.onSearchTermChange('');
   }
 

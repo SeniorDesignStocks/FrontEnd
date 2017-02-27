@@ -16,7 +16,6 @@ import SignUpForm from 'components/SignUpForm';
 class SignUpPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   handleSubmit = (values) => {
     const signUpInfo = values.toJS();
-    console.log(signUpInfo);
     this.props.handleSignUp(signUpInfo);
   }
 

@@ -27,11 +27,9 @@ function appReducer(state = initialState, action) {
 
     // handlers for user signing
     case SIGN_IN_SUCCESS:
-      console.log(action);
       return state
         .set('userData', fromJS(action.userData));
     case SIGN_IN_FAILURE:
-      console.log(action);
       return state
         .set('error', action.message);
 
