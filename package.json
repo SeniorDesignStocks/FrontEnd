@@ -284,6 +284,5 @@
     "webpack": "2.1.0-beta.25",
     "webpack-dev-middleware": "1.8.4",
     "webpack-hot-middleware": "2.13.1",
-    "yargs": "^6.6.0"
   }
 }
