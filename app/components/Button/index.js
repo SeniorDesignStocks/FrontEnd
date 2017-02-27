@@ -1,21 +1,43 @@
-import styled from 'styled-components';
-import { red, white } from 'styles/colors';
-import { textMedium, font } from 'styles/text';
-import { inputFocus } from 'styles/mixins';
+import React, { PropTypes, PureComponent } from 'react';
+import { isString } from 'lodash';
 
-const Button = styled.button`
-  color: ${white};
-  background-color: ${red};
-  border-radius: 2px;
+import Wrapper from './elements/Wrapper';
+import ButtonLink from './elements/ButtonLink';
 
-  font-family: ${font};
-  font-size: ${textMedium};
-  outline: none;
-  height: 40px;
-  width: 300px;
-  margin-bottom: 20px;
+class Button extends PureComponent {
+  createLoading() {
+    return;
+  }
 
-  ${inputFocus}
-`;
+  createLink(to, color, props) {
+    return (
+      <Wrapper color={color}>
+        <ButtonLink {...props} to={to} />
+      </Wrapper>
+    );
+  }
+
+  defaultButton(color, props) {
+    return <Wrapper color={color} {...props} />;
+  }
+
+  render() {
+    const { to, loading, color, ...props } = this.props;
+
+    if (loading) {
+      return this.createLoading();
+    } else if (isString(to)) {
+      return this.createLink(to, color, props);
+    }
+
+    return this.defaultButton(color, props);
+  }
+}
+
+Button.propTypes = {
+  to: PropTypes.string,
+  loading: PropTypes.bool,
+  color: PropTypes.string,
+};
 
 export default Button;

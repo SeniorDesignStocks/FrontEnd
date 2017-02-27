@@ -27,7 +27,8 @@ function SignInForm({ handleSubmit, errorMessage }) {
         <Field name="password" component={TextInput} type="text" />
       </Section>
       <ErrorMessage>{errorMessage}</ErrorMessage>
-      <Button type="submit" className="button-primary">Sign In</Button>
+      <Button type="submit">Sign In</Button>
+      <Button to="/sign-up" color="lightBlue">Sign Up</Button>
     </Wrapper>
   );
 }

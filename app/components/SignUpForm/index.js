@@ -43,6 +43,7 @@ function SignUpForm({ handleSubmit, errors }) {
         {makeErrorMessage(password)}
       </Section>
       <Button type="submit">Sign Up</Button>
+      <Button to="/sign-in" color="lightBlue">Sign In</Button>
     </Wrapper>
   );
 }

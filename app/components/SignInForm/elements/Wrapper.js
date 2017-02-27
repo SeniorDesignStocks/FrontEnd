@@ -6,7 +6,7 @@ const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   width: 340px;
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   border-radius: 2px;
   color: ${black};
 

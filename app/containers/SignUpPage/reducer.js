@@ -22,7 +22,6 @@ const initialState = fromJS({
 function signUpPageReducer(state = initialState, action) {
   switch (action.type) {
     case SIGN_UP_FAILURE:
-      console.log(action.errors);
       return state.set('errors', fromJS(action.errors));
 
     default:

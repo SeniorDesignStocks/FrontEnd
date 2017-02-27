@@ -18,6 +18,7 @@ export function* postNewAccount({ username, password, email }) {
       favorites: ['AAPL', 'AASS', 'GOOG'],
     }));
   } else {
+    // default error messages before i get more complex ones to return from the server
     yield put(signUpFailure({ username, password, email }));
   }
 }
