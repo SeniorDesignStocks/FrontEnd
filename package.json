@@ -11,6 +11,7 @@
   },
   "author": "Max Stoiber",
   "license": "MIT",
+  "homepage": "https://seniordesignstocks.github.io/FrontEnd/",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
     "preanalyze": "npm run analyze:clean",
@@ -45,7 +46,9 @@
     "test:firefox": "npm run test -- --browsers Firefox",
     "test:safari": "npm run test -- --browsers Safari",
     "test:ie": "npm run test -- --browsers IE",
-    "coveralls": "cat ./coverage/lcov/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov/lcov.info | coveralls",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "lint-staged": {
     "*.js": "lint:eslint"
@@ -249,6 +252,7 @@
     "expect-jsx": "2.6.0",
     "exports-loader": "0.6.3",
     "file-loader": "0.9.0",
+    "gh-pages": "^0.12.0",
     "html-loader": "0.4.4",
     "html-webpack-plugin": "2.24.0",
     "image-webpack-loader": "2.0.0",
