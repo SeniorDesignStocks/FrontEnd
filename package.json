@@ -215,8 +215,7 @@
     "sanitize.css": "4.1.0",
     "styled-components": "1.1.2",
     "warning": "3.0.0",
-    "whatwg-fetch": "1.0.0",
-    "yargs": "^6.6.0"
+    "whatwg-fetch": "1.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
@@ -284,6 +283,7 @@
     "url-loader": "0.5.7",
     "webpack": "2.1.0-beta.25",
     "webpack-dev-middleware": "1.8.4",
-    "webpack-hot-middleware": "2.13.1"
+    "webpack-hot-middleware": "2.13.1",
+    "yargs": "^6.6.0"
   }
 }
