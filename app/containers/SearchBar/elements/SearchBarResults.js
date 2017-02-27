@@ -26,10 +26,10 @@ class SearchBarResults extends Component {
   }
 
   render() {
-    const { results, searchTerm, favorites, setFavorite } = this.props;
+    const { onSelectResult, results, searchTerm, favorites, setFavorite } = this.props;
 
     const createList = (favorited) => (name, key) => (
-      <SearchBarListItem stockName={name} key={key}>
+      <SearchBarListItem onClick={onSelectResult} stockName={name} key={key}>
         { isUndefined(favorited)
             ? ''
             : <FavoriteIcon
@@ -80,6 +80,7 @@ SearchBarResults.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
   ]),
   setFavorite: PropTypes.func,
+  onSelectResult: PropTypes.func,
 };
 
 export default SearchBarResults;

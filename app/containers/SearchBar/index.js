@@ -24,8 +24,9 @@ import SearchBarResults from './elements/SearchBarResults';
 
 export class SearchBar extends Component {
 
-  handleFocus = (focus) => {
-    this.setState({ focus });
+  selectResult = () => {
+    console.log('test');
+    this.props.onSearchTermChange('');
   }
 
   render() {
@@ -45,7 +46,7 @@ export class SearchBar extends Component {
           <SearchInput
             type="text"
             value={searchTerm}
-            onChange={onSearchTermChange}
+            onChange={(e) => onSearchTermChange(e.target.value)}
           />
           { searchTerm.length > 0 ?
             <SearchBarResults
@@ -53,6 +54,7 @@ export class SearchBar extends Component {
               searchTerm={searchTerm}
               favorites={favorites}
               setFavorite={setFavorite}
+              onSelectResult={this.selectResult}
             />
             : '' }
         </SearchBarFrame>
@@ -80,7 +82,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSearchTermChange: (e) => dispatch(changeSeachTerm(e.target.value)),
+    onSearchTermChange: (term) => dispatch(changeSeachTerm(term)),
     setFavorite: (stockName, isFavorite) => dispatch(
       isFavorite
         ? addFavorite(stockName)
