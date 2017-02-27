@@ -47,8 +47,9 @@
     "test:safari": "npm run test -- --browsers Safari",
     "test:ie": "npm run test -- --browsers IE",
     "coveralls": "cat ./coverage/lcov/lcov.info | coveralls",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    
+    "heroku-postbuild": "npm run build",
+    "prebuild": "npm run build:clean"
   },
   "lint-staged": {
     "*.js": "lint:eslint"
