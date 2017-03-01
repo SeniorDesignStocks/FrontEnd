@@ -15,6 +15,7 @@ import {
   selectSelectIndex,
 } from './selectors';
 import { selectFavorites } from 'containers/App/selectors';
+import Logo from 'components/Logo';
 
 import {
   changeSeachTerm,
@@ -64,6 +65,7 @@ export class SearchBar extends PureComponent {
 
     return (
       <Wrapper>
+        <Logo />
         <SearchBarFrame style={style} >
           <SearchInput
             type="text"
