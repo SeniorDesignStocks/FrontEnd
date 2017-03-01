@@ -17,10 +17,6 @@ import {
 import { selectFavorites } from 'containers/App/selectors';
 
 import {
-  addFavorite,
-  unfavorite,
-} from 'containers/App/actions';
-import {
   changeSeachTerm,
   changeSelectIndex,
 } from './actions';

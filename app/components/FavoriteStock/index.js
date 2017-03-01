@@ -52,7 +52,6 @@ class FavoriteStock extends Component {
 FavoriteStock.propTypes = {
   info: PropTypes.object,
   requestPlotData: PropTypes.func,
-  unFavorite: PropTypes.func,
 };
 
 export default FavoriteStock;

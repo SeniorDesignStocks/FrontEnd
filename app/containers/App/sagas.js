@@ -20,11 +20,9 @@ export function* putAddFavorite({ stockName }) {
 }
 
 export function* addFavorite() {
-  console.log('add');
   yield takeEvery(ADDFAVORITE, putAddFavorite);
 }
 export function* unfavorite() {
-  console.log('un');
   yield takeEvery(UNFAVORITE, putUnfavorite);
 }
 

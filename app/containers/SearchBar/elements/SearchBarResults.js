@@ -27,7 +27,6 @@ class SearchBarResults extends Component {
 
   render() {
     const { onSelectResult, results, searchTerm, favorites, selectIndex } = this.props;
-    console.log(favorites)
 
     const createList = (favorited, modSelectIndex) => (name, key) => (
       <SearchBarListItem selected={modSelectIndex === key} onClick={onSelectResult} stockName={name} key={key}>
