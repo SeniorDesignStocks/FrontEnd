@@ -14,7 +14,7 @@ import StockValue from './elements/StockValue';
 import TitleBarLeft from './elements/TitleBarLeft';
 import StockGraph from 'components/StockGraph';
 
-import FavoriteIcon from 'components/FavoriteIcon';
+import FavoriteIcon from 'containers/FavoriteIcon';
 
 class FavoriteStock extends Component {
   componentWillMount() {
@@ -29,13 +29,13 @@ class FavoriteStock extends Component {
   }
 
   render() {
-    const { name, stockData, plotData, favorited } = this.props.info;
+    const { name, stockData, plotData } = this.props.info;
 
     return (
       <Wrapper>
         <TitleBar>
           <TitleBarLeft>
-            <FavoriteIcon favorited={favorited} onClick={this.props.unFavorite} />
+            <FavoriteIcon stockName={name} />
             <StockName to={`/stock/${name}`}>{name}</StockName>
           </TitleBarLeft>
           <StockValue up={stockData.up} value={stockData.value} />

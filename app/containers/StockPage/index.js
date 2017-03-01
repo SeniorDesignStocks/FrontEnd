@@ -6,25 +6,27 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import Helmet from 'react-helmet';
 import selectStockPage from './selectors';
 
-import Wrapper from 'components/defaultWrapper';
-import Overlay from 'components/Overlay';
 import Panel from './elements/Panel';
+import NewsList from './elements/NewsList';
+import NewsLink from './elements/NewsLink';
+import NewsElement from './elements/NewsElement';
 import TitleSection from './elements/TitleSection';
 import TitleElement from './elements/TitleElement';
-import TitleSectionWhiteSpace from './elements/TitleSectionWhiteSpace';
-import FavoriteIcon from 'components/FavoriteIcon';
-import StockGraph from 'components/StockGraph';
-import DateFilterForm from 'components/DateFilterForm';
 import SectionTitle from './elements/SectionTitle';
-import NewsList from './elements/NewsList';
-import NewsElement from './elements/NewsElement';
-import NewsLink from './elements/NewsLink';
-import LoadingBar from 'components/LoadingBar';
-import H2 from 'components/H2';
+import TitleSectionWhiteSpace from './elements/TitleSectionWhiteSpace';
+
 import P from 'components/P';
+import H2 from 'components/H2';
+import Overlay from 'components/Overlay';
+import StockGraph from 'components/StockGraph';
+import LoadingBar from 'components/LoadingBar';
+import Wrapper from 'components/defaultWrapper';
+import FavoriteIcon from 'containers/FavoriteIcon';
+import DateFilterForm from 'components/DateFilterForm';
 
 import {
   requestPlotData,
@@ -36,7 +38,7 @@ import {
 export class StockPage extends Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
     const { stockName } = this.props.params;
-    const { plotData, news, predictions, stockData } = this.props;
+    const { plotData, news, predictions, stockData } = this.props.stockPage;
     const { getPlotData, getNews, getPredictions, getStockData } = this.props;
     const load = (data, getter) => data || getter(stockName);
 
@@ -48,7 +50,9 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
 
   render() {
     const { stockName } = this.props.params;
-    const { plotData, news, predictions, stockData, isOverlay, oldPathName } = this.props;
+    const { plotData, news, predictions, stockData } = this.props.stockPage;
+    const { isOverlay, oldPathName } = this.props;
+
     const ElemWrapper = isOverlay ? Overlay : Wrapper;
 
     return (
@@ -56,12 +60,12 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
         <Helmet
           title="StockPage"
           meta={[
-            { name: 'description', content: 'Description of StockPage' },
+            { name: 'description', content: `Details about the stock: ${stockName}` },
           ]}
         />
         <Panel>
           <TitleSection>
-            <FavoriteIcon favorited />
+            <FavoriteIcon stockName={stockName} />
             <TitleElement>{stockName}</TitleElement>
             <TitleSectionWhiteSpace></TitleSectionWhiteSpace>
             <TitleElement>{stockData ? stockData.value : '~'}</TitleElement>
@@ -98,11 +102,12 @@ StockPage.propTypes = {
   isOverlay: bool,
   oldPathName: string,
 
-  // data to be loaded
-  news: oneOfType([array, bool]),
-  predictions: oneOfType([object, bool]),
-  plotData: oneOfType([array, bool]),
-  stockData: oneOfType([object, bool]),
+  stockPage: shape({
+    news: oneOfType([array, bool]),
+    predictions: oneOfType([object, bool]),
+    plotData: oneOfType([array, bool]),
+    stockData: oneOfType([object, bool]),
+  }),
 
   // dispatchers
   getPlotData: func,
@@ -111,7 +116,9 @@ StockPage.propTypes = {
   getStockData: func,
 };
 
-const mapStateToProps = selectStockPage();
+const mapStateToProps = createStructuredSelector({
+  stockPage: selectStockPage(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {

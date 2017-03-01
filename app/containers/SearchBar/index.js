@@ -56,7 +56,7 @@ export class SearchBar extends PureComponent {
   }
 
   render() {
-    const { searchTerm, searchResults, onSearchTermChange, favorites, setFavorite, selectIndex } = this.props;
+    const { searchTerm, searchResults, onSearchTermChange, favorites, selectIndex } = this.props;
     let style = { height: '50px' };
 
     if (searchTerm.length > 0) {
@@ -81,7 +81,6 @@ export class SearchBar extends PureComponent {
               results={searchResults}
               searchTerm={searchTerm}
               favorites={favorites}
-              setFavorite={setFavorite}
               selectIndex={selectIndex}
               onSelectResult={this.selectResult}
             />
@@ -102,7 +101,6 @@ SearchBar.propTypes = {
     PropTypes.bool,
     PropTypes.arrayOf(PropTypes.string),
   ]),
-  setFavorite: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -116,10 +114,6 @@ function mapDispatchToProps(dispatch) {
   return {
     onSearchTermChange: (term) => dispatch(changeSeachTerm(term)),
     onSelectIndexChange: (newIndex) => dispatch(changeSelectIndex(newIndex)),
-    setFavorite: (stockName, isFavorite) => dispatch(
-      isFavorite
-        ? addFavorite(stockName)
-        : unfavorite(stockName)),
   };
 }
 

@@ -7,15 +7,14 @@
 import { fromJS } from 'immutable';
 import {
   PLOT_DATA_SUCCESS,
-  FAVORITE_DATA_SUCCESS,
 } from './constants';
 import {
+  ADDFAVORITE_SUCCESS,
   UNFAVORITE_SUCCESS,
 } from 'containers/App/constants';
 
 const initialState = fromJS([{
   name: 'AAPL',
-  favorited: true,
   stockData: {
     value: 300,
     up: true,
@@ -23,7 +22,6 @@ const initialState = fromJS([{
   plotData: false,
 }, {
   name: 'AASS',
-  favorited: true,
   stockData: {
     value: 450,
     up: false,
@@ -31,7 +29,6 @@ const initialState = fromJS([{
   plotData: false,
 }, {
   name: 'GOOG',
-  favorited: true,
   stockData: {
     value: 300,
     up: true,
@@ -49,8 +46,15 @@ function favoriteListReducer(state = initialState, action) {
           (item) => item.set('plotData', action.plotData)
         );
 
-    case FAVORITE_DATA_SUCCESS:
-      return state.push(action.data);
+    case ADDFAVORITE_SUCCESS:
+      return state.push(fromJS({
+        name: action.stockName,
+        stockData: {
+          value: 300,
+          up: true,
+        },
+        plotData: false,
+      }));
 
     case UNFAVORITE_SUCCESS:
       return state

@@ -5,7 +5,7 @@ import SearchBarList from './SearchBarList';
 import SearchBarListItem from './SearchBarListItem';
 import SearchBarListItemRight from './SearchBarListItemRight';
 import StockNameHighlight from './StockNameHighlight';
-import FavoriteIcon from 'components/FavoriteIcon';
+import FavoriteIcon from 'containers/FavoriteIcon';
 
 class SearchBarResults extends Component {
   createName(name, rawTerm) {
@@ -26,19 +26,15 @@ class SearchBarResults extends Component {
   }
 
   render() {
-    const { onSelectResult, results, searchTerm, favorites, setFavorite, selectIndex } = this.props;
+    const { onSelectResult, results, searchTerm, favorites, selectIndex } = this.props;
+    console.log(favorites)
 
     const createList = (favorited, modSelectIndex) => (name, key) => (
       <SearchBarListItem selected={modSelectIndex === key} onClick={onSelectResult} stockName={name} key={key}>
         { isUndefined(favorited)
             ? ''
             : <FavoriteIcon
-              favorited={favorited}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setFavorite(name, !favorited);
-              }}
+              stockName={name}
             /> }
         {this.createName(name, searchTerm)}
         <SearchBarListItemRight>Pred: test</SearchBarListItemRight>
@@ -83,7 +79,6 @@ SearchBarResults.propTypes = {
     PropTypes.bool,
     PropTypes.arrayOf(PropTypes.string),
   ]),
-  setFavorite: PropTypes.func,
   onSelectResult: PropTypes.func,
   selectIndex: PropTypes.number,
 };

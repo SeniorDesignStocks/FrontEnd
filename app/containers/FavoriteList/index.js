@@ -14,7 +14,6 @@ import { selectFavorites } from 'containers/App/selectors';
 
 // actions
 import { requestPlotData } from './actions';
-import { unfavorite } from 'containers/App/actions';
 
 // components
 import Wrapper from './elements/Wrapper';
@@ -23,7 +22,7 @@ import LogInMessage from 'components/LogInMessage';
 
 export class FavoriteList extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { favoritesData, favorites } = this.props;
+    const { favoritesData, favorites, handleRequestPlotData } = this.props;
 
     let content = '';
     if (favorites) {
@@ -31,8 +30,7 @@ export class FavoriteList extends Component { // eslint-disable-line react/prefe
         <FavoriteStock
           key={key}
           info={info}
-          requestPlotData={() => this.props.requestPlotData(info.name)}
-          unFavorite={() => this.props.unfavorite(info.name)}
+          requestPlotData={() => handleRequestPlotData(info.name)}
         />
       );
     } else {
@@ -49,8 +47,7 @@ export class FavoriteList extends Component { // eslint-disable-line react/prefe
 
 FavoriteList.propTypes = {
   favoritesData: PropTypes.array,
-  requestPlotData: PropTypes.func,
-  unfavorite: PropTypes.func,
+  handleRequestPlotData: PropTypes.func,
   favorites: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.array,
@@ -64,8 +61,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    requestPlotData: (stockName) => dispatch(requestPlotData(stockName)),
-    unfavorite: (stockName) => dispatch(unfavorite(stockName)),
+    handleRequestPlotData: (stockName) => dispatch(requestPlotData(stockName)),
   };
 }
 

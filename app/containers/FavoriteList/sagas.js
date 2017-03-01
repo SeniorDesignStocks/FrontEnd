@@ -29,7 +29,6 @@ export function* getPlotData({ stockName }) {
 export function* getFavoriteData({ stockName }) {
   yield put(favoriteDataSuccess(fromJS({
     name: stockName,
-    favorited: true,
     stockData: {
       value: 300,
       up: true,
