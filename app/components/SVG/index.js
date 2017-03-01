@@ -8,6 +8,7 @@ import iconStarFull from 'assets/svg/star-full.svg';
 import iconStarEmpty from 'assets/svg/star-empty.svg';
 import iconStarHalf from 'assets/svg/star-half.svg';
 import iconCross from 'assets/svg/cross.svg';
+import iconSearch from 'assets/svg/search.svg';
 
 const Wrapper = styled.div`
 
@@ -21,6 +22,7 @@ const getPath = (type) => {
     case 'star-empty': return iconStarEmpty;
     case 'star-half': return iconStarHalf;
     case 'cross': return iconCross;
+    case 'search': return iconSearch;
 
     default:
       return '';
