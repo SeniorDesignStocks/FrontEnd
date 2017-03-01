@@ -1,6 +1,8 @@
 # Stocks Simplified
 
-I need to get shit done...
+This is the front-end for our application Stocks Simplified, It is written in react/redux with the base configurationg coming from react-boilerplate. This is my first experience writing a redux application this large so if something looks crazy, that is why; I have been trying to improve as I go but a lot of this is written very tired/drunk.
+
+This is a series of todos I have locally on my system for what needs to be done on the project. This is mostly for transparency with my group so they can see what still needs to be done on my end.
 
 ### Long Term Ideas
 
