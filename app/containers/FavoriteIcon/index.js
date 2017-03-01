@@ -51,7 +51,6 @@ class FavoriteIcon extends Component {
       <SVG
         style={{
           margin: '0 10px 3px 0',
-          color: this.favorited ? red : darkGrey,
           fill: red,
         }}
         type={this.getType()}

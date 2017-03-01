@@ -14,6 +14,11 @@ import {
   PREDICTIONS_SUCCESS,
   NEWS_SUCCESS,
   STOCK_DATA_SUCCESS,
+
+  PLOT_DATA_FAILURE,
+  PREDICTIONS_FAILURE,
+  NEWS_FAILURE,
+  STOCK_DATA_FAILURE,
 } from './constants';
 
 export const requestPlotData = (stockName) => ({
@@ -53,5 +58,25 @@ export const newsSuccess = (news) => ({
 
 export const stockDataSuccess = (stockData) => ({
   type: STOCK_DATA_SUCCESS,
+  stockData,
+});
+
+export const plotDataFailure = (plotData) => ({
+  type: PLOT_DATA_FAILURE,
+  plotData,
+});
+
+export const predictionsFailure = (predictions) => ({
+  type: PREDICTIONS_FAILURE,
+  predictions,
+});
+
+export const newsFailure = (news) => ({
+  type: NEWS_FAILURE,
+  news,
+});
+
+export const stockDataFailure = (stockData) => ({
+  type: STOCK_DATA_FAILURE,
   stockData,
 });
