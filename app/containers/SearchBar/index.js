@@ -4,32 +4,59 @@
  *
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 
-import { selectSearchTerm, selectSearchResults } from './selectors';
+import {
+  selectSearchTerm,
+  selectSearchResults,
+  selectSelectIndex,
+} from './selectors';
 import { selectFavorites } from 'containers/App/selectors';
 
 import {
   addFavorite,
   unfavorite,
 } from 'containers/App/actions';
-import { changeSeachTerm } from './actions';
+import {
+  changeSeachTerm,
+  changeSelectIndex,
+} from './actions';
 
 import Wrapper from './elements/Wrapper';
 import SearchInput from './elements/SearchInput';
 import SearchBarFrame from './elements/SearchBarFrame';
 import SearchBarResults from './elements/SearchBarResults';
 
-export class SearchBar extends Component {
+export class SearchBar extends PureComponent {
 
   selectResult = () => {
     this.props.onSearchTermChange('');
   }
 
+  handleOnEnter = () => {
+    const { searchResults, selectIndex } = this.props;
+
+    if (searchResults.length > 0) {
+      this.selectResult();
+      browserHistory.push(`/stock/${searchResults[selectIndex]}`);
+    }
+  }
+
+  handleMove = (move) => {
+    const { onSelectIndexChange, selectIndex, searchResults } = this.props;
+
+    if (move === 'DOWN' && selectIndex !== searchResults.length - 1 && searchResults.length > 0) {
+      onSelectIndexChange(selectIndex + 1);
+    } else if (move === 'UP' && selectIndex !== 0) {
+      onSelectIndexChange(selectIndex - 1);
+    }
+  }
+
   render() {
-    const { searchTerm, searchResults, onSearchTermChange, favorites, setFavorite } = this.props;
+    const { searchTerm, searchResults, onSearchTermChange, favorites, setFavorite, selectIndex } = this.props;
     let style = { height: '50px' };
 
     if (searchTerm.length > 0) {
@@ -46,6 +73,8 @@ export class SearchBar extends Component {
             type="text"
             value={searchTerm}
             onChange={(e) => onSearchTermChange(e.target.value)}
+            onMove={this.handleMove}
+            onEnter={this.handleOnEnter}
           />
           { searchTerm.length > 0 ?
             <SearchBarResults
@@ -53,6 +82,7 @@ export class SearchBar extends Component {
               searchTerm={searchTerm}
               favorites={favorites}
               setFavorite={setFavorite}
+              selectIndex={selectIndex}
               onSelectResult={this.selectResult}
             />
             : '' }
@@ -64,8 +94,10 @@ export class SearchBar extends Component {
 
 SearchBar.propTypes = {
   searchTerm: PropTypes.string,
+  selectIndex: PropTypes.number,
   searchResults: PropTypes.arrayOf(PropTypes.string),
   onSearchTermChange: PropTypes.func,
+  onSelectIndexChange: PropTypes.func,
   favorites: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.arrayOf(PropTypes.string),
@@ -76,12 +108,14 @@ SearchBar.propTypes = {
 const mapStateToProps = createStructuredSelector({
   searchTerm: selectSearchTerm(),
   searchResults: selectSearchResults(),
+  selectIndex: selectSelectIndex(),
   favorites: selectFavorites(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onSearchTermChange: (term) => dispatch(changeSeachTerm(term)),
+    onSelectIndexChange: (newIndex) => dispatch(changeSelectIndex(newIndex)),
     setFavorite: (stockName, isFavorite) => dispatch(
       isFavorite
         ? addFavorite(stockName)

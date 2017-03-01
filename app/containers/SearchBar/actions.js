@@ -6,6 +6,7 @@
 
 import {
   CHANGE_SEARCH_TERM,
+  CHANGE_SELECT_INDEX,
 } from './constants';
 
 export function changeSeachTerm(newSearchTerm) {
@@ -21,3 +22,8 @@ export function changeSeachTerm(newSearchTerm) {
     newSearchResults: testData.filter((stock) => stock.indexOf(newSearchTerm.toUpperCase()) !== -1),
   };
 }
+
+export const changeSelectIndex = (newIndex) => ({
+  type: CHANGE_SELECT_INDEX,
+  newIndex,
+});

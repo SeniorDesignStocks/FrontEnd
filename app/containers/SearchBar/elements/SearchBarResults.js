@@ -26,10 +26,10 @@ class SearchBarResults extends Component {
   }
 
   render() {
-    const { onSelectResult, results, searchTerm, favorites, setFavorite } = this.props;
+    const { onSelectResult, results, searchTerm, favorites, setFavorite, selectIndex } = this.props;
 
-    const createList = (favorited) => (name, key) => (
-      <SearchBarListItem onClick={onSelectResult} stockName={name} key={key}>
+    const createList = (favorited, modSelectIndex) => (name, key) => (
+      <SearchBarListItem selected={modSelectIndex === key} onClick={onSelectResult} stockName={name} key={key}>
         { isUndefined(favorited)
             ? ''
             : <FavoriteIcon
@@ -51,22 +51,26 @@ class SearchBarResults extends Component {
           ? 'favorite'
           : 'nonFavorite'
       ));
+      const nonFavSelectIndex = isUndefined(groups.favorite)
+        ? selectIndex
+        : selectIndex - groups.favorite.length
+        ;
 
       return (
         <SearchBarList>
           { isUndefined(groups.favorite)
               ? ''
-              : groups.favorite.map(createList(true)) }
+              : groups.favorite.map(createList(true, selectIndex)) }
           { isUndefined(groups.nonFavorite)
               ? ''
-              : groups.nonFavorite.map(createList(false)) }
+              : groups.nonFavorite.map(createList(false, nonFavSelectIndex)) }
         </SearchBarList>
       );
     }
 
     return (
       <SearchBarList>
-        { results.map(createList()) }
+        { results.map(createList(undefined, selectIndex)) }
       </SearchBarList>
     );
   }
@@ -81,6 +85,7 @@ SearchBarResults.propTypes = {
   ]),
   setFavorite: PropTypes.func,
   onSelectResult: PropTypes.func,
+  selectIndex: PropTypes.number,
 };
 
 export default SearchBarResults;

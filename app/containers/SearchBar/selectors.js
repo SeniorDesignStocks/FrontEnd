@@ -15,7 +15,13 @@ const selectSearchResults = () => createSelector(
   (state) => state.get('searchResults').toJS()
 );
 
+const selectSelectIndex = () => createSelector(
+  selectSearchBarDomain(),
+  (state) => state.get('selectIndex')
+);
+
 export {
   selectSearchTerm,
   selectSearchResults,
+  selectSelectIndex,
 };

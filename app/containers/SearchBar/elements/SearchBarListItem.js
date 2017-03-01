@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { grey, black } from 'styles/colors';
+import { grey, black, white } from 'styles/colors';
 import { font, textMedium } from 'styles/text';
 import { Link } from 'react-router';
 
@@ -14,6 +14,7 @@ const Wrapper = styled.li`
   padding: 0 5px;
   border-radius: 2px;
 
+  background-color: ${(props) => (props.selected ? grey : white)};
   &:hover {
     background-color: ${grey};
   }
@@ -26,8 +27,8 @@ const StockLink = styled(Link)`
   text-decoration: none;
 `;
 
-const SearchBarListItem = ({ stockName, children, ...props }) => (
-  <Wrapper {...props}>
+const SearchBarListItem = ({ stockName, children, selected, ...props }) => (
+  <Wrapper {...props} selected={selected}>
     <StockLink to={`/stock/${stockName}`}>
       {React.Children.toArray(children)}
     </StockLink>
@@ -37,6 +38,7 @@ const SearchBarListItem = ({ stockName, children, ...props }) => (
 SearchBarListItem.propTypes = {
   stockName: PropTypes.string,
   children: PropTypes.node,
+  selected: PropTypes.bool,
 };
 
 export default SearchBarListItem;

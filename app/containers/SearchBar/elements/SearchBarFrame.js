@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { pageWidth } from 'styles/dimensions';
 
-const SearchBarFrame = styled.form`
+const SearchBarFrame = styled.div`
   flex: 1;
   max-width: ${pageWidth};
   background-color: #fff;
