@@ -1,5 +1,6 @@
-import { takeLatest, put, take, cancel } from 'redux-saga/effects';
+import { call, takeLatest, put, take, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
+import request from 'utils/request';
 
 import {
   REQUEST_PLOT_DATA,
@@ -10,20 +11,27 @@ import {
 
 import {
   plotDataSuccess,
-  predictionsSuccess,
+  plotDataFailure,
+
   newsSuccess,
+  newsFailure,
+
+  predictionsSuccess,
+
   stockDataSuccess,
+  stockDataFailure,
 } from './actions';
 
 export function* loadPlotData() {
-  yield put(plotDataSuccess([
-    { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-    { name: 'Page B', uv: 300, pv: 4567, amt: 2400 },
-    { name: 'Page C', uv: 300, pv: 1398, amt: 2400 },
-    { name: 'Page D', uv: 200, pv: 9800, amt: 2400 },
-    { name: 'Page E', uv: 278, pv: 3908, amt: 2400 },
-    { name: 'Page F', uv: 189, pv: 4800, amt: 2400 },
-  ]));
+  const requestURL = 'http://localhost:8080/api/stockData/plotData';
+
+  try {
+    const res = yield call(request, requestURL);
+
+    yield put(plotDataSuccess(res.plotData));
+  } catch (err) {
+    yield put(plotDataFailure(err));
+  }
 }
 
 export function* loadPredictions() {
@@ -31,37 +39,28 @@ export function* loadPredictions() {
 }
 
 export function* loadNews() {
+  const requestURL = 'http://localhost:8080/api/news/current';
+
   // lets create some fake news O.o
-  yield put(newsSuccess([{
-    title: 'OMG this litterally just happened',
-    source: 'The Wall Street Journal',
-    link: 'https://www.wsj.com/',
-    disc: 'Welp, that was a thing.',
-  }, {
-    title: 'OMG this litterally just happened',
-    source: 'The Wall Street Journal',
-    link: 'https://www.wsj.com/',
-    disc: 'Welp, that was a thing.',
-  }, {
-    title: 'OMG this litterally just happened',
-    source: 'The Wall Street Journal',
-    link: 'https://www.wsj.com/',
-    disc: 'Welp, that was a thing.',
-  }, {
-    title: 'OMG this litterally just happened',
-    source: 'The Wall Street Journal',
-    link: 'https://www.wsj.com/',
-    disc: 'Welp, that was a thing.',
-  }, {
-    title: 'OMG this litterally just happened',
-    source: 'The Wall Street Journal',
-    link: 'https://www.wsj.com/',
-    disc: 'Welp, that was a thing.',
-  }]));
+  try {
+    const res = yield call(request, requestURL);
+
+    yield put(newsSuccess(res.data));
+  } catch (err) {
+    yield put(newsFailure(err));
+  }
 }
 
 export function* loadStockData() {
-  yield put(stockDataSuccess({ value: 300 }));
+  const requestURL = 'http://localhost:8080/api/stockData/general';
+
+  try {
+    const res = yield call(request, requestURL);
+
+    yield put(stockDataSuccess(res.data));
+  } catch (err) {
+    yield put(stockDataFailure(err));
+  }
 }
 
 export function* plotData() {
