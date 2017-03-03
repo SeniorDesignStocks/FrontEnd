@@ -22,7 +22,6 @@ export function* getPlotData({ stockName }) {
   const requestURL = `http://localhost:8080/api/stockData/plotData/${stockName}`;
   const cachePath = { stockName, type: 'plotData' };
   const data = cache.get(cachePath);
-  console.log(requestURL);
 
   if (data) {
     yield put(plotDataLoaded(stockName, data));
@@ -30,12 +29,8 @@ export function* getPlotData({ stockName }) {
     try {
       const res = yield call(request, requestURL);
 
-      if (res.data.length > 0) {
-        cache.set(cachePath, res.data);
-        yield put(plotDataLoaded(stockName, res.data));
-      } else {
-        yield put(displayError({ message: `Could not load plot data for ${stockName}` }));
-      }
+      cache.set(cachePath, res.data);
+      yield put(plotDataLoaded(stockName, res.data));
     } catch (err) {
       yield put(displayError(err));
     }
