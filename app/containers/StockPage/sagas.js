@@ -7,7 +7,7 @@ import {
   REQUEST_PLOT_DATA,
   REQUEST_NEWS,
   REQUEST_PREDICTIONS,
-  REQUEST_STOCK_DATA,
+  REQUEST_CUR_VALUES,
 } from './constants';
 
 import {
@@ -19,8 +19,8 @@ import {
 
   predictionsSuccess,
 
-  stockDataSuccess,
-  stockDataFailure,
+  curValuesSuccess,
+  curValuesFailure,
 } from './actions';
 
 export function* loadPlotData({ stockName }) {
@@ -46,28 +46,41 @@ export function* loadPredictions() {
   yield put(predictionsSuccess({}));
 }
 
-export function* loadNews() {
+export function* loadNews({ stockName }) {
   const requestURL = 'http://localhost:8080/api/news/current';
+  const cachePath = { stockName, type: news };
+  const data = cache.get(cachePath);
 
-  // lets create some fake news O.o
-  try {
-    const res = yield call(request, requestURL);
+  if (data) {
+    yield put(newsSuccess(data));
+  } else {
+    try {
+      const res = yield call(request, requestURL);
 
-    yield put(newsSuccess(res.data));
-  } catch (err) {
-    yield put(newsFailure(err));
+      cache.set(cachePath, res.data);
+      yield put(newsSuccess(res.data));
+    } catch (err) {
+      yield put(newsFailure(err));
+    }
   }
 }
 
-export function* loadStockData({ stockName }) {
+export function* loadCurValues({ stockName }) {
   const requestURL = `http://localhost:8080/api/stockData/general/${stockName}`;
+  const cachePath = { stockName, type: 'curValues' };
+  const data = cache.get(cachePath);
 
-  try {
-    const res = yield call(request, requestURL);
+  if (data) {
+    yield put(curValuesSuccess(data));
+  } else {
+    try {
+      const res = yield call(request, requestURL);
 
-    yield put(stockDataSuccess(res.data));
-  } catch (err) {
-    yield put(stockDataFailure(err));
+      cache.set(cachePath, res.data);
+      yield put(curValuesSuccess(res.data));
+    } catch (err) {
+      yield put(curValuesFailure(err));
+    }
   }
 }
 
@@ -95,8 +108,8 @@ export function* predictions() {
   yield cancel(watcher);
 }
 
-export function* stockData() {
-  const watcher = yield takeLatest(REQUEST_STOCK_DATA, loadStockData);
+export function* curValues() {
+  const watcher = yield takeLatest(REQUEST_CUR_VALUES, loadCurValues);
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
@@ -108,5 +121,5 @@ export default [
   plotData,
   predictions,
   news,
-  stockData,
+  curValues,
 ];

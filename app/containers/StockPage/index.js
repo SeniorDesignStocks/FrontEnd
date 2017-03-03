@@ -32,25 +32,25 @@ import {
   requestPlotData,
   requestPredictions,
   requestNews,
-  requestStockData,
+  requestCurValues,
 } from './actions';
 
 export class StockPage extends Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
     const { stockName } = this.props.params;
-    const { plotData, news, predictions, stockData } = this.props.stockPage;
-    const { getPlotData, getNews, getPredictions, getStockData } = this.props;
+    const { plotData, news, predictions, curValues } = this.props.stockPage;
+    const { getPlotData, getNews, getPredictions, getCurValues } = this.props;
     const load = (data, getter) => data || getter(stockName);
 
     load(plotData, getPlotData);
     load(predictions, getPredictions);
     load(news, getNews);
-    load(stockData, getStockData);
+    load(curValues, getCurValues);
   }
 
   render() {
     const { stockName } = this.props.params;
-    const { plotData, news, predictions, stockData } = this.props.stockPage;
+    const { plotData, news, predictions, curValues } = this.props.stockPage;
     const { isOverlay, oldPathName } = this.props;
 
     const ElemWrapper = isOverlay ? Overlay : Wrapper;
@@ -68,7 +68,7 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
             <FavoriteIcon stockName={stockName} />
             <TitleElement>{stockName}</TitleElement>
             <TitleSectionWhiteSpace></TitleSectionWhiteSpace>
-            <TitleElement>{stockData ? stockData.value : '~'}</TitleElement>
+            <TitleElement>{curValues ? curValues.value : '~'}</TitleElement>
           </TitleSection>
           <DateFilterForm />
           { plotData
@@ -106,14 +106,14 @@ StockPage.propTypes = {
     news: oneOfType([array, bool]),
     predictions: oneOfType([object, bool]),
     plotData: oneOfType([array, bool]),
-    stockData: oneOfType([object, bool]),
+    curValues: oneOfType([object, bool]),
   }),
 
   // dispatchers
   getPlotData: func,
   getPredictions: func,
   getNews: func,
-  getStockData: func,
+  getCurValues: func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -125,7 +125,7 @@ function mapDispatchToProps(dispatch) {
     getPlotData: (stockName) => dispatch(requestPlotData(stockName)),
     getPredictions: (stockName) => dispatch(requestPredictions(stockName)),
     getNews: (stockName) => dispatch(requestNews(stockName)),
-    getStockData: (stockName) => dispatch(requestStockData(stockName)),
+    getCurValues: (stockName) => dispatch(requestCurValues(stockName)),
   };
 }
 

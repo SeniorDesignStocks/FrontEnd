@@ -8,17 +8,17 @@ import {
   REQUEST_PLOT_DATA,
   REQUEST_PREDICTIONS,
   REQUEST_NEWS,
-  REQUEST_STOCK_DATA,
+  REQUEST_CUR_VALUES,
 
   PLOT_DATA_SUCCESS,
   PREDICTIONS_SUCCESS,
   NEWS_SUCCESS,
-  STOCK_DATA_SUCCESS,
+  CUR_VALUES_SUCCESS,
 
   PLOT_DATA_FAILURE,
   PREDICTIONS_FAILURE,
   NEWS_FAILURE,
-  STOCK_DATA_FAILURE,
+  CUR_VALUES_FAILURE,
 } from './constants';
 
 export const requestPlotData = (stockName) => ({
@@ -36,8 +36,8 @@ export const requestNews = (stockName) => ({
   stockName,
 });
 
-export const requestStockData = (stockName) => ({
-  type: REQUEST_STOCK_DATA,
+export const requestCurValues = (stockName) => ({
+  type: REQUEST_CUR_VALUES,
   stockName,
 });
 
@@ -56,9 +56,9 @@ export const newsSuccess = (news) => ({
   news,
 });
 
-export const stockDataSuccess = (stockData) => ({
-  type: STOCK_DATA_SUCCESS,
-  stockData,
+export const curValuesSuccess = (curValues) => ({
+  type: CUR_VALUES_SUCCESS,
+  curValues,
 });
 
 export const plotDataFailure = (plotData) => ({
@@ -76,7 +76,7 @@ export const newsFailure = (news) => ({
   news,
 });
 
-export const stockDataFailure = (stockData) => ({
-  type: STOCK_DATA_FAILURE,
-  stockData,
+export const curValuesFailure = (curValues) => ({
+  type: CUR_VALUES_FAILURE,
+  curValues,
 });
