@@ -1,7 +1,7 @@
-import { delay } from 'redux-saga';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { call, takeEvery, put, take, cancel } from 'redux-saga/effects';
+import cache from 'utils/cache';
 import request from 'utils/request';
 
 import {
@@ -20,17 +20,25 @@ import {
 
 export function* getPlotData({ stockName }) {
   const requestURL = `http://localhost:8080/api/stockData/plotData/${stockName}`;
+  const cachePath = { stockName, type: 'plotData' };
+  const data = cache.get(cachePath);
+  console.log(requestURL);
 
-  try {
-    const res = yield call(request, requestURL);
+  if (data) {
+    yield put(plotDataLoaded(stockName, data));
+  } else {
+    try {
+      const res = yield call(request, requestURL);
 
-    if (res.data.length > 0) {
-      yield put(plotDataLoaded(stockName, res.data));
-    } else {
-      yield put(displayError({ message: `Could not load plot data for ${stockName}` }));
+      if (res.data.length > 0) {
+        cache.set(cachePath, res.data);
+        yield put(plotDataLoaded(stockName, res.data));
+      } else {
+        yield put(displayError({ message: `Could not load plot data for ${stockName}` }));
+      }
+    } catch (err) {
+      yield put(displayError(err));
     }
-  } catch (err) {
-    yield put(displayError(err));
   }
 }
 

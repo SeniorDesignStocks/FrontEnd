@@ -4,7 +4,7 @@
  *
  */
 
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
@@ -20,12 +20,11 @@ import Wrapper from './elements/Wrapper';
 import FavoriteStock from 'components/FavoriteStock';
 import LogInMessage from 'components/LogInMessage';
 
-export class FavoriteList extends Component { // eslint-disable-line react/prefer-stateless-function
+export class FavoriteList extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { favoritesData, favorites, handleRequestPlotData } = this.props;
 
     let content = '';
-    console.log(favoritesData);
     if (favorites) {
       content = favoritesData.map((info, key) =>
         <FavoriteStock
