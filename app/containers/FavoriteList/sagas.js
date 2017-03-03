@@ -1,12 +1,16 @@
 import { delay } from 'redux-saga';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { takeEvery, put, take, cancel } from 'redux-saga/effects';
+import { call, takeEvery, put, take, cancel } from 'redux-saga/effects';
+import request from 'utils/request';
 
 import {
   plotDataLoaded,
   favoriteDataSuccess,
 } from './actions';
+import {
+  displayError,
+} from 'containers/App/actions';
 import {
   REQUEST_PLOT_DATA,
 } from './constants';
@@ -15,15 +19,19 @@ import {
 } from 'containers/App/constants';
 
 export function* getPlotData({ stockName }) {
-  yield delay(2000);
-  yield put(plotDataLoaded(stockName, [
-    { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-    { name: 'Page B', uv: 300, pv: 4567, amt: 2400 },
-    { name: 'Page C', uv: 300, pv: 1398, amt: 2400 },
-    { name: 'Page D', uv: 200, pv: 9800, amt: 2400 },
-    { name: 'Page E', uv: 278, pv: 3908, amt: 2400 },
-    { name: 'Page F', uv: 189, pv: 4800, amt: 2400 },
-  ]));
+  const requestURL = `http://localhost:8080/api/stockData/plotData/${stockName}`;
+
+  try {
+    const res = yield call(request, requestURL);
+
+    if (res.data.length > 0) {
+      yield put(plotDataLoaded(stockName, res.data));
+    } else {
+      yield put(displayError({ message: `Could not load plot data for ${stockName}` }));
+    }
+  } catch (err) {
+    yield put(displayError(err));
+  }
 }
 
 export function* getFavoriteData({ stockName }) {

@@ -5,6 +5,7 @@
 */
 
 import React, { PropTypes } from 'react';
+import moment from 'moment';
 import {
   AreaChart,
   linearGradient,
@@ -16,18 +17,23 @@ import {
 
 import { lightBlue } from 'styles/colors';
 
+const dateFormat = (date) => moment(date).format('MMM');
+const tooltipFormat = (date) => moment(date).format('MMM Do');
+
+
 function StockGraph({ data, width = 800, margin = { right: 50, top: 10, bottom: 10 } }) {
   return (
     <AreaChart width={width} height={400} margin={margin} data={data}>
-      <Area type="monotone" dataKey="uv" strokeWidth="" stroke={lightBlue} fillOpacity={1} fill="url(#uv)" />
       <defs>
-        <linearGradient id="uv" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id="close" x1="0" y1="0" x2="0" y2="1">
           <stop stopColor={lightBlue} stopOpacity={0.1} />
         </linearGradient>
       </defs>
-      <Tooltip />
-      <XAxis dataKey="name" />
-      <YAxis />
+
+      <Area type="monotone" dataKey="adjClose" strokeWidth="" stroke={lightBlue} fillOpacity={1} fill="url(#close)" />
+      <Tooltip labelFormatter={tooltipFormat} />
+      <XAxis dataKey="date" tickFormatter={dateFormat} tickCount={5} />
+      <YAxis dataKey="adjClose" />
     </AreaChart>
   );
 }

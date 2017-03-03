@@ -25,6 +25,7 @@ export class FavoriteList extends Component { // eslint-disable-line react/prefe
     const { favoritesData, favorites, handleRequestPlotData } = this.props;
 
     let content = '';
+    console.log(favoritesData);
     if (favorites) {
       content = favoritesData.map((info, key) =>
         <FavoriteStock
