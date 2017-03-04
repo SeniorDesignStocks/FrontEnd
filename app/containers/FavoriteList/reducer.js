@@ -39,7 +39,6 @@ function favoriteListReducer(state = initialState, action) {
         );
 
     case CUR_VALUES_SUCCESS:
-      console.log(action);
       return state
         .update(
           state.findIndex((item) => item.get('name') === action.stockName),

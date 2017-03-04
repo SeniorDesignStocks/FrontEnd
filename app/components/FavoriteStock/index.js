@@ -37,7 +37,6 @@ class FavoriteStock extends Component {
 
   render() {
     const { name, curValues, plotData } = this.props.data;
-    console.log(curValues);
 
     return (
       <Wrapper>

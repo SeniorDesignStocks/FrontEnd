@@ -42,7 +42,6 @@ export function* getFavoriteData({ stockName }) {
 }
 
 export function* getCurValues({ stockName }) {
-  console.log('saga called')
   const requestURL = `http://localhost:8080/api/stockData/general/${stockName}`;
 
   try {
@@ -71,7 +70,6 @@ export function* favoriteData() {
 }
 
 export function* curValues() {
-  console.log('saga');
   const watcher = yield takeEvery(REQUEST_CUR_VALUES, getCurValues);
 
   // Suspend execution until location changes
