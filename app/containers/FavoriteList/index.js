@@ -13,7 +13,7 @@ import selectFavoriteList from './selectors';
 import { selectFavorites } from 'containers/App/selectors';
 
 // actions
-import { requestPlotData } from './actions';
+import { requestPlotData, requestCurValues } from './actions';
 
 // components
 import Wrapper from './elements/Wrapper';
@@ -22,15 +22,16 @@ import LogInMessage from 'components/LogInMessage';
 
 export class FavoriteList extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { favoritesData, favorites, handleRequestPlotData } = this.props;
+    const { favoritesData, favorites, getPlotData, getCurValues } = this.props;
 
     let content = '';
     if (favorites) {
-      content = favoritesData.map((info, key) =>
+      content = favoritesData.map((data, key) =>
         <FavoriteStock
           key={key}
-          info={info}
-          requestPlotData={() => handleRequestPlotData(info.name)}
+          data={data}
+          getPlotData={() => getPlotData(data.name)}
+          getCurValues={() => getCurValues(data.name)}
         />
       );
     } else {
@@ -47,7 +48,8 @@ export class FavoriteList extends PureComponent { // eslint-disable-line react/p
 
 FavoriteList.propTypes = {
   favoritesData: PropTypes.array,
-  handleRequestPlotData: PropTypes.func,
+  getPlotData: PropTypes.func,
+  getCurValues: PropTypes.func,
   favorites: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.array,
@@ -61,7 +63,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleRequestPlotData: (stockName) => dispatch(requestPlotData(stockName)),
+    getPlotData: (stockName) => dispatch(requestPlotData(stockName)),
+    getCurValues: (stockName) => dispatch(requestCurValues(stockName)),
   };
 }
 

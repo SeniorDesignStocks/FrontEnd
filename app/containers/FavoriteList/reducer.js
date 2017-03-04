@@ -7,6 +7,7 @@
 import { fromJS } from 'immutable';
 import {
   PLOT_DATA_SUCCESS,
+  CUR_VALUES_SUCCESS,
 } from './constants';
 import {
   ADDFAVORITE_SUCCESS,
@@ -15,24 +16,15 @@ import {
 
 const initialState = fromJS([{
   name: 'AAPL',
-  stockData: {
-    value: 300,
-    up: true,
-  },
+  curValues: false,
   plotData: false,
 }, {
   name: 'AASS',
-  stockData: {
-    value: 450,
-    up: false,
-  },
+  curValues: false,
   plotData: false,
 }, {
   name: 'GOOG',
-  stockData: {
-    value: 300,
-    up: true,
-  },
+  curValues: false,
   plotData: false,
 }]);
 
@@ -46,13 +38,18 @@ function favoriteListReducer(state = initialState, action) {
           (item) => item.set('plotData', action.plotData)
         );
 
+    case CUR_VALUES_SUCCESS:
+      console.log(action);
+      return state
+        .update(
+          state.findIndex((item) => item.get('name') === action.stockName),
+          (item) => item.set('curValues', action.curValues)
+        );
+
     case ADDFAVORITE_SUCCESS:
       return state.push(fromJS({
         name: action.stockName,
-        stockData: {
-          value: 300,
-          up: true,
-        },
+        stockData: false,
         plotData: false,
       }));
 

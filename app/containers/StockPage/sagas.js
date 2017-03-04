@@ -1,6 +1,5 @@
 import { call, takeLatest, put, take, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import cache from 'utils/cache';
 import request from 'utils/request';
 
 import {
@@ -25,20 +24,13 @@ import {
 
 export function* loadPlotData({ stockName }) {
   const requestURL = `http://localhost:8080/api/stockData/plotData/${stockName}`;
-  const cachePath = { stockName, type: 'plotData' };
-  const data = cache.get(cachePath);
 
-  if (data) {
-    yield put(plotDataSuccess(data));
-  } else {
-    try {
-      const res = yield call(request, requestURL);
+  try {
+    const res = yield call(request, requestURL);
 
-      cache.set(cachePath, res.data);
-      yield put(plotDataSuccess(res.data));
-    } catch (err) {
-      yield put(plotDataFailure(err));
-    }
+    yield put(plotDataSuccess(res.data));
+  } catch (err) {
+    yield put(plotDataFailure(err));
   }
 }
 
@@ -46,41 +38,27 @@ export function* loadPredictions() {
   yield put(predictionsSuccess({}));
 }
 
-export function* loadNews({ stockName }) {
+export function* loadNews() {
   const requestURL = 'http://localhost:8080/api/news/current';
-  const cachePath = { stockName, type: news };
-  const data = cache.get(cachePath);
 
-  if (data) {
-    yield put(newsSuccess(data));
-  } else {
-    try {
-      const res = yield call(request, requestURL);
+  try {
+    const res = yield call(request, requestURL);
 
-      cache.set(cachePath, res.data);
-      yield put(newsSuccess(res.data));
-    } catch (err) {
-      yield put(newsFailure(err));
-    }
+    yield put(newsSuccess(res.data));
+  } catch (err) {
+    yield put(newsFailure(err));
   }
 }
 
 export function* loadCurValues({ stockName }) {
   const requestURL = `http://localhost:8080/api/stockData/general/${stockName}`;
-  const cachePath = { stockName, type: 'curValues' };
-  const data = cache.get(cachePath);
 
-  if (data) {
-    yield put(curValuesSuccess(data));
-  } else {
-    try {
-      const res = yield call(request, requestURL);
+  try {
+    const res = yield call(request, requestURL);
 
-      cache.set(cachePath, res.data);
-      yield put(curValuesSuccess(res.data));
-    } catch (err) {
-      yield put(curValuesFailure(err));
-    }
+    yield put(curValuesSuccess(res.data));
+  } catch (err) {
+    yield put(curValuesFailure(err));
   }
 }
 

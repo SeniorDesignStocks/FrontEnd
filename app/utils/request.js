@@ -1,5 +1,17 @@
 import 'whatwg-fetch';
 
+const requestCache = (() => {
+  const cache = {};
+
+  return {
+    get: (url) => cache[url],
+    push: (url) => (response) => {
+      cache[url] = response;
+      return response;
+    },
+  };
+})();
+
 /**
  * Parses the JSON returned by a network request
  *
@@ -37,7 +49,18 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
-  return fetch(url, options)
-    .then(checkStatus)
-    .then(parseJSON);
+  const cacheVal = requestCache.get(url);
+
+  if (cacheVal === undefined) {
+    const boundPush = requestCache.push(url);
+
+    return fetch(url, options)
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(boundPush);
+  }
+
+  console.log(`request skipped: ${url}`);
+
+  return cacheVal;
 }

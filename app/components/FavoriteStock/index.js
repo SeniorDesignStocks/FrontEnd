@@ -18,8 +18,15 @@ import FavoriteIcon from 'containers/FavoriteIcon';
 
 class FavoriteStock extends Component {
   componentWillMount() {
-    if (this.props.info.plotData === false) {
-      this.props.requestPlotData();
+    const { getPlotData, getCurValues, data } = this.props;
+    const { plotData, curValues } = data;
+
+    if (plotData === false) {
+      getPlotData();
+    }
+
+    if (curValues === false) {
+      getCurValues();
     }
   }
 
@@ -29,7 +36,8 @@ class FavoriteStock extends Component {
   }
 
   render() {
-    const { name, stockData, plotData } = this.props.info;
+    const { name, curValues, plotData } = this.props.data;
+    console.log(curValues);
 
     return (
       <Wrapper>
@@ -38,7 +46,10 @@ class FavoriteStock extends Component {
             <FavoriteIcon stockName={name} />
             <StockName to={`/stock/${name}`}>{name}</StockName>
           </TitleBarLeft>
-          <StockValue up={stockData.up} value={stockData.value} />
+          { curValues === false
+            ? ''
+            : <StockValue up={curValues.up} value={curValues.value} />
+          }
         </TitleBar>
         { plotData === false
           ? <LoadingBar />
@@ -50,8 +61,9 @@ class FavoriteStock extends Component {
 }
 
 FavoriteStock.propTypes = {
-  info: PropTypes.object,
-  requestPlotData: PropTypes.func,
+  data: PropTypes.object,
+  getPlotData: PropTypes.func,
+  getCurValues: PropTypes.func,
 };
 
 export default FavoriteStock;

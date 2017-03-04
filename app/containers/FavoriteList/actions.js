@@ -8,6 +8,8 @@ import {
   REQUEST_PLOT_DATA,
   PLOT_DATA_SUCCESS,
   FAVORITE_DATA_SUCCESS,
+  REQUEST_CUR_VALUES,
+  CUR_VALUES_SUCCESS,
 } from './constants';
 
 export const requestPlotData = (stockName) => ({
@@ -24,4 +26,15 @@ export const plotDataLoaded = (stockName, plotData) => ({
 export const favoriteDataSuccess = (data) => ({
   type: FAVORITE_DATA_SUCCESS,
   data,
+});
+
+export const requestCurValues = (stockName) => ({
+  type: REQUEST_CUR_VALUES,
+  stockName,
+});
+
+export const curValuesLoaded = (stockName, curValues) => ({
+  type: CUR_VALUES_SUCCESS,
+  stockName,
+  curValues,
 });
