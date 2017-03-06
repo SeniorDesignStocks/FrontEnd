@@ -26,7 +26,6 @@ import StockGraph from 'components/StockGraph';
 import LoadingBar from 'components/LoadingBar';
 import Wrapper from 'components/defaultWrapper';
 import FavoriteIcon from 'containers/FavoriteIcon';
-import DateFilterForm from 'components/DateFilterForm';
 
 import {
   requestPlotData,
@@ -70,9 +69,8 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
             <TitleSectionWhiteSpace></TitleSectionWhiteSpace>
             <TitleElement>{curValues ? curValues.value : '~'}</TitleElement>
           </TitleSection>
-          <DateFilterForm />
           { plotData
-            ? <StockGraph data={plotData} />
+            ? <StockGraph data={plotData} datePeriodSelector />
             : <LoadingBar /> }
           <SectionTitle>Predicitons</SectionTitle>
           {predictions ? '' : ''}
