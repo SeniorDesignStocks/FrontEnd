@@ -52,7 +52,7 @@ class FavoriteStock extends Component {
         </TitleBar>
         { plotData === false
           ? <LoadingBar />
-          : <StockGraph data={plotData} />
+          : <StockGraph data={plotData} datePeriodSelector />
         }
       </Wrapper>
     );

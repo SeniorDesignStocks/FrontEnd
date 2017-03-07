@@ -16,7 +16,7 @@ import {
   Brush,
 } from 'recharts';
 
-import { lightBlue, black } from 'styles/colors';
+import { lightBlue, black, purple } from 'styles/colors';
 import DatePeriodSelector from './elements/DatePeriodSelector';
 import Wrapper from './elements/Wrapper';
 
@@ -64,6 +64,14 @@ class StockGraph extends Component {
     }
   }
 
+  // Converting the data so that it is displayed better by rechart in tooltips
+  convertData(data) {
+    return data.map(({ date, adjClose }) => ({
+      date,
+      close: adjClose,
+    }));
+  }
+
   render() {
     const { data, width = 800, margin = { right: 50, top: 10, bottom: 10 }, brush, datePeriodSelector } = this.props;
 
@@ -72,17 +80,23 @@ class StockGraph extends Component {
         { datePeriodSelector
           ? <DatePeriodSelector pickFilter={this.handleFilter} filter={this.state.filter} />
           : '' }
-        <AreaChart width={width} height={400} margin={margin} data={this.filterData(data)}>
+        <AreaChart width={width} height={400} margin={margin} data={this.convertData(this.filterData(data))}>
           <defs>
-            <linearGradient id="close" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="lightBlue" x1="0" y1="0" x2="0" y2="1">
               <stop stopColor={lightBlue} stopOpacity={0.1} />
             </linearGradient>
           </defs>
 
-          <Area type="monotone" dataKey="adjClose" strokeWidth="" stroke={lightBlue} fillOpacity={1} fill="url(#close)" />
+          <Area
+            isAnimationActive={false}
+            dataKey="close"
+            stroke={lightBlue}
+            fill="url(#lightBlue)"
+          />
+
           <Tooltip labelFormatter={tooltipFormat} />
           <XAxis dataKey="date" tickFormatter={tooltipFormat} minTickGap={100} />
-          <YAxis dataKey="adjClose" />
+          <YAxis dataKey="close" />
           { brush
             ? <Brush dataKey="date" height={30} stroke={black} tickFormatter={tooltipFormat} />
             : '' }
