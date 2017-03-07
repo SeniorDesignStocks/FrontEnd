@@ -1,12 +1,23 @@
-import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { red, lightBlue, white } from 'styles/colors';
+import { red, white, black, grey, lightGrey } from 'styles/colors';
 import { textMedium, font } from 'styles/text';
 import { inputFocus } from 'styles/mixins';
 
-const DefaultWrapper = styled.button`
-  color: ${white};
-  background-color: ${red};
+const secondaryHover = `
+transition: 0.25s ease;
+&:hover {
+  background-color: ${grey};
+}
+&:focus {
+  background-color: ${grey};
+}
+`;
+const secondaryBorder = `1px solid ${grey}`;
+
+const Wrapper = styled.button`
+  color: ${(props) => (props.primary ? white : black)};
+  background-color: ${(props) => (props.primary ? red : lightGrey)};
+  border: ${(props) => (props.primary ? 'none' : secondaryBorder)};
   border-radius: 2px;
 
   font-family: ${font};
@@ -19,23 +30,5 @@ const DefaultWrapper = styled.button`
 
   ${inputFocus}
 `;
-
-const createColor = (color) => {
-  switch (color) {
-    case 'lightBlue':
-      return { backgroundColor: lightBlue };
-
-    default:
-      return {};
-  }
-};
-
-const Wrapper = ({ color, ...props }) => (
-  <DefaultWrapper style={createColor(color)} {...props} />
-);
-
-Wrapper.propTypes = {
-  color: PropTypes.string,
-};
 
 export default Wrapper;

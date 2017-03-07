@@ -16,7 +16,7 @@ import {
   Brush,
 } from 'recharts';
 
-import { lightBlue, black, purple } from 'styles/colors';
+import { lightBlue, black } from 'styles/colors';
 import DatePeriodSelector from './elements/DatePeriodSelector';
 import Wrapper from './elements/Wrapper';
 

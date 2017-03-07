@@ -9,35 +9,35 @@ class Button extends PureComponent {
     return;
   }
 
-  createLink(to, color, props) {
+  createLink(to, primary, props) {
     return (
-      <Wrapper color={color}>
+      <Wrapper primary={primary}>
         <ButtonLink {...props} to={to} />
       </Wrapper>
     );
   }
 
-  defaultButton(color, props) {
-    return <Wrapper color={color} {...props} />;
+  defaultButton(primary, props) {
+    return <Wrapper primary={primary} {...props} />;
   }
 
   render() {
-    const { to, loading, color, ...props } = this.props;
+    const { to, loading, primary = true, ...props } = this.props;
 
     if (loading) {
       return this.createLoading();
     } else if (isString(to)) {
-      return this.createLink(to, color, props);
+      return this.createLink(to, primary, props);
     }
 
-    return this.defaultButton(color, props);
+    return this.defaultButton(primary, props);
   }
 }
 
 Button.propTypes = {
   to: PropTypes.string,
   loading: PropTypes.bool,
-  color: PropTypes.string,
+  primary: PropTypes.bool,
 };
 
 export default Button;

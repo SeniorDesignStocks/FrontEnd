@@ -28,7 +28,7 @@ function SignInForm({ handleSubmit, errorMessage }) {
       </Section>
       <ErrorMessage>{errorMessage}</ErrorMessage>
       <Button type="submit">Sign In</Button>
-      <Button to="/sign-up" color="lightBlue">Sign Up</Button>
+      <Button to="/sign-up" primary={false}>Sign Up</Button>
     </Wrapper>
   );
 }

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router';
-import { white } from 'styles/colors';
 
 const ButtonLink = styled(Link)`
   line-height: 40px;
@@ -9,7 +8,7 @@ const ButtonLink = styled(Link)`
   bottom: 0;
   left: 0;
   right: 0;
-  color: ${white};
+  color:  inherit;
   text-decoration: none;
 `;
 
