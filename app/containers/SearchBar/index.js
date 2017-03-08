@@ -38,7 +38,7 @@ export class SearchBar extends PureComponent {
 
     if (searchResults.length > 0) {
       this.selectResult();
-      browserHistory.push(`/stock/${searchResults[selectIndex]}`);
+      browserHistory.push(`/stock/${searchResults[selectIndex].symbol}`);
     }
   }
 
