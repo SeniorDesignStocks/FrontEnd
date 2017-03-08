@@ -5,6 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import {
   PLOT_DATA_SUCCESS,
   NEWS_SUCCESS,
@@ -32,6 +33,13 @@ function stockPageReducer(state = initialState, action) {
 
     case CUR_VALUES_SUCCESS:
       return state.set('curValues', action.curValues);
+
+    case LOCATION_CHANGE:
+      return state
+        .set('news', false)
+        .set('plotData', false)
+        .set('curValues', false)
+        .set('predictions', false);
 
     default:
       return state;

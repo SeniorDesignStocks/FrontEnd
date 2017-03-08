@@ -45,9 +45,12 @@ class FavoriteStock extends Component {
             <FavoriteIcon stockName={name} />
             <StockName to={`/stock/${name}`}>{name}</StockName>
           </TitleBarLeft>
-          { curValues === false
-            ? ''
-            : <StockValue up={curValues.up} value={curValues.value} />
+          { curValues
+            ? <StockValue
+              up={curValues.lastTradePriceOnly > curValues['50DayMovingAverage']}
+              value={curValues.lastTradePriceOnly}
+            />
+            : ''
           }
         </TitleBar>
         { plotData === false

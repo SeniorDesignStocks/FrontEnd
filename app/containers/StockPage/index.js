@@ -4,7 +4,7 @@
  *
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Helmet from 'react-helmet';
@@ -34,8 +34,15 @@ import {
   requestCurValues,
 } from './actions';
 
-export class StockPage extends Component { // eslint-disable-line react/prefer-stateless-function
-  componentWillMount() {
+export class StockPage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount = this.handleFullReset
+  componentDidUpdate(newProps) {
+    const { plotData, news, predictions, curValues } = newProps.stockPage;
+
+    // handles if all the data was reset, this happens during a redirect change
+    if (!plotData && !news && !predictions && !curValues) this.handleFullReset();
+  }
+  handleFullReset() {
     const { stockName } = this.props.params;
     const { plotData, news, predictions, curValues } = this.props.stockPage;
     const { getPlotData, getNews, getPredictions, getCurValues } = this.props;
@@ -51,7 +58,6 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
     const { stockName } = this.props.params;
     const { plotData, news, predictions, curValues } = this.props.stockPage;
     const { isOverlay, oldPathName } = this.props;
-
     const ElemWrapper = isOverlay ? Overlay : Wrapper;
 
     return (
@@ -67,7 +73,9 @@ export class StockPage extends Component { // eslint-disable-line react/prefer-s
             <FavoriteIcon stockName={stockName} />
             <TitleElement>{stockName}</TitleElement>
             <TitleSectionWhiteSpace></TitleSectionWhiteSpace>
-            <TitleElement>{curValues ? curValues.value : '~'}</TitleElement>
+            <TitleElement up={curValues.lastTradePriceOnly > curValues['50DayMovingAverage']}>
+              {curValues ? curValues.lastTradePriceOnly : '~'}
+            </TitleElement>
           </TitleSection>
           { plotData
             ? <StockGraph data={plotData} datePeriodSelector />

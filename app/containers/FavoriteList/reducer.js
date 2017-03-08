@@ -19,10 +19,6 @@ const initialState = fromJS([{
   curValues: false,
   plotData: false,
 }, {
-  name: 'AASS',
-  curValues: false,
-  plotData: false,
-}, {
   name: 'GOOG',
   curValues: false,
   plotData: false,
