@@ -34,7 +34,7 @@ class StockGraph extends Component {
   filterData = (data) => {
     const { filter } = this.state;
     const getIndex = (endPoint) => data.findIndex(({ date }) =>
-      moment(date).isAfter(endPoint, 'day') && moment(date).isAfter(endPoint, 'month'));
+      moment(date).isAfter(endPoint));
 
     switch (filter) {
       case 'Week':

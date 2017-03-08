@@ -3,15 +3,6 @@ import { red, white, black, grey, lightGrey } from 'styles/colors';
 import { textMedium, font } from 'styles/text';
 import { inputFocus } from 'styles/mixins';
 
-const secondaryHover = `
-transition: 0.25s ease;
-&:hover {
-  background-color: ${grey};
-}
-&:focus {
-  background-color: ${grey};
-}
-`;
 const secondaryBorder = `1px solid ${grey}`;
 
 const Wrapper = styled.button`

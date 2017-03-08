@@ -89,16 +89,14 @@ export class SearchBar extends PureComponent {
   }
 }
 
+const { string, number, object, func, oneOfType, arrayOf, bool } = PropTypes;
 SearchBar.propTypes = {
-  searchTerm: PropTypes.string,
-  selectIndex: PropTypes.number,
-  searchResults: PropTypes.arrayOf(PropTypes.string),
-  onSearchTermChange: PropTypes.func,
-  onSelectIndexChange: PropTypes.func,
-  favorites: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
+  searchTerm: string,
+  selectIndex: number,
+  searchResults: arrayOf(object),
+  onSearchTermChange: func,
+  onSelectIndexChange: func,
+  favorites: oneOfType([bool, arrayOf(string)]),
 };
 
 const mapStateToProps = createStructuredSelector({

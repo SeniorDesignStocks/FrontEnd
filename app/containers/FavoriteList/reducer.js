@@ -48,7 +48,7 @@ function favoriteListReducer(state = initialState, action) {
     case ADDFAVORITE_SUCCESS:
       return state.push(fromJS({
         name: action.stockName,
-        stockData: false,
+        curValues: false,
         plotData: false,
       }));
 

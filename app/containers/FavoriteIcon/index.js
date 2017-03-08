@@ -9,7 +9,7 @@ import {
 import { selectFavorites } from 'containers/App/selectors';
 
 import SVG from 'components/SVG';
-import { darkGrey, red } from 'styles/colors';
+import { red } from 'styles/colors';
 
 class FavoriteIcon extends Component {
   state = { isMouseOver: false }

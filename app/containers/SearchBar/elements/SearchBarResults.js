@@ -4,6 +4,7 @@ import { groupBy, isUndefined } from 'lodash';
 import SearchBarList from './SearchBarList';
 import SearchBarListItem from './SearchBarListItem';
 import SearchBarListItemRight from './SearchBarListItemRight';
+import SearchBarListItemPadding from './SearchBarListItemPadding';
 import StockNameHighlight from './StockNameHighlight';
 import FavoriteIcon from 'containers/FavoriteIcon';
 
@@ -27,22 +28,25 @@ class SearchBarResults extends Component {
 
   render() {
     const { onSelectResult, results, searchTerm, favorites, selectIndex } = this.props;
+    console.log(results);
 
-    const createList = (favorited, modSelectIndex) => (name, key) => (
-      <SearchBarListItem selected={modSelectIndex === key} onClick={onSelectResult} stockName={name} key={key}>
+    const createList = (favorited, modSelectIndex) => ({ symbol, lastTradePriceOnly, ...elem }, key) => (
+      <SearchBarListItem selected={modSelectIndex === key} onClick={onSelectResult} stockName={symbol} key={key}>
         { isUndefined(favorited)
             ? ''
             : <FavoriteIcon
-              stockName={name}
+              stockName={symbol}
             /> }
-        {this.createName(name, searchTerm)}
-        <SearchBarListItemRight>Pred: test</SearchBarListItemRight>
+        {this.createName(symbol, searchTerm)}
+        <SearchBarListItemPadding />
+        <SearchBarListItemRight value="test" prefix="Pred: " />
+        <SearchBarListItemRight value={lastTradePriceOnly} up={lastTradePriceOnly > elem['50DayMovingAverage']} />
       </SearchBarListItem>
     );
 
     if (favorites) {
-      const groups = groupBy(results, (name) => (
-        favorites.indexOf(name) !== -1
+      const groups = groupBy(results, ({ symbol }) => (
+        favorites.indexOf(symbol) !== -1
           ? 'favorite'
           : 'nonFavorite'
       ));
@@ -71,15 +75,13 @@ class SearchBarResults extends Component {
   }
 }
 
+const { arrayOf, string, object, bool, oneOfType, number, func } = PropTypes;
 SearchBarResults.propTypes = {
-  results: PropTypes.arrayOf(React.PropTypes.string),
-  searchTerm: PropTypes.string,
-  favorites: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-  onSelectResult: PropTypes.func,
-  selectIndex: PropTypes.number,
+  results: arrayOf(object),
+  searchTerm: string,
+  favorites: oneOfType([bool, arrayOf(string)]),
+  onSelectResult: func,
+  selectIndex: number,
 };
 
 export default SearchBarResults;

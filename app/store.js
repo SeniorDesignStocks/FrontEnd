@@ -4,10 +4,13 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
+import { flatten } from 'lodash';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
-import globalSagas from './containers/App/sagas';
+
+import globalSagas from 'containers/App/sagas';
+import searchBarSagas from 'containers/SearchBar/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -41,7 +44,7 @@ export default function configureStore(initialState = {}, history) {
 
   // Extensions
   store.runSaga = sagaMiddleware.run;
-  globalSagas.map(store.runSaga);
+  flatten([globalSagas, searchBarSagas]).map(store.runSaga);
   store.asyncReducers = {}; // Async reducer registry
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
