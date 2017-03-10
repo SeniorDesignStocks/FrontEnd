@@ -38,7 +38,6 @@ class SearchBarResults extends Component {
             /> }
         {this.createName(symbol, searchTerm)}
         <SearchBarListItemPadding />
-        <SearchBarListItemRight value="test" prefix="Pred: " />
         <SearchBarListItemRight value={lastTradePriceOnly} up={lastTradePriceOnly > elem['50DayMovingAverage']} />
       </SearchBarListItem>
     );
