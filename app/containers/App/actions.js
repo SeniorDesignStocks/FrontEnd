@@ -48,8 +48,9 @@ export function signOut() {
   };
 }
 
-export const unfavorite = (stockName) => ({
+export const unfavorite = (username, stockName) => ({
   type: UNFAVORITE,
+  username,
   stockName,
 });
 
@@ -58,8 +59,9 @@ export const unfavoriteSuccess = (stockName) => ({
   stockName,
 });
 
-export const addFavorite = (stockName) => ({
+export const addFavorite = (username, stockName) => ({
   type: ADDFAVORITE,
+  username,
   stockName,
 });
 

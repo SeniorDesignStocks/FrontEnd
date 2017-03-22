@@ -1,6 +1,10 @@
 import { takeEvery, put, takeLatest, call } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 import { login } from 'api/user';
+import {
+  addFavorite as apiAddFavorite,
+  removeFavorite as apiRemoveFavorite,
+} from 'api/account';
 
 import {
   unfavoriteSuccess,
@@ -14,11 +18,21 @@ import {
   SIGN_IN,
 } from './constants';
 
-export function* putUnfavorite({ stockName }) {
-  yield put(unfavoriteSuccess(stockName));
+export function* putUnfavorite({ username, stockName }) {
+  try {
+    yield call(apiRemoveFavorite, { username, stockName });
+    yield put(unfavoriteSuccess(stockName));
+  } catch (err) {
+    yield console.error(err);
+  }
 }
-export function* putAddFavorite({ stockName }) {
-  yield put(addFavoriteSuccess(stockName));
+export function* putAddFavorite({ username, stockName }) {
+  try {
+    yield call(apiAddFavorite, { username, stockName });
+    yield put(addFavoriteSuccess(stockName));
+  } catch (err) {
+    yield console.error(err);
+  }
 }
 
 export function* addFavorite() {

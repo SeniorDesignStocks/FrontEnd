@@ -42,6 +42,17 @@ const selectFavorites = () => createSelector(
   }
 );
 
+const selectUsername = () => createSelector(
+  selectUserData(),
+  (state) => {
+    if (state === false) {
+      return '';
+    }
+
+    return state.username;
+  }
+);
+
 const selectErrorMessage = () => createSelector(
   selectGlobalDomain(),
   (state) => state.get('error'),
@@ -51,5 +62,6 @@ export {
   selectLocationState,
   selectUserData,
   selectFavorites,
+  selectUsername,
   selectErrorMessage,
 };

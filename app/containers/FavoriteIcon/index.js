@@ -6,7 +6,7 @@ import {
   addFavorite,
   unfavorite,
 } from 'containers/App/actions';
-import { selectFavorites } from 'containers/App/selectors';
+import { selectFavorites, selectUsername } from 'containers/App/selectors';
 
 import SVG from 'components/SVG';
 import { red } from 'styles/colors';
@@ -32,10 +32,10 @@ class FavoriteIcon extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    const { favorites, stockName, setFavorite } = this.props;
+    const { favorites, stockName, setFavorite, username } = this.props;
 
     if (favorites) {
-      setFavorite(stockName, this.favorited);
+      setFavorite(username, stockName, this.favorited);
     }
   }
 
@@ -74,17 +74,19 @@ class FavoriteIcon extends Component {
 FavoriteIcon.propTypes = {
   stockName: PropTypes.string,
   favorites: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  username: PropTypes.string,
   setFavorite: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setFavorite: (stockName, isFavorite) =>
+  setFavorite: (username, stockName, isFavorite) =>
     dispatch(isFavorite
-      ? unfavorite(stockName)
-      : addFavorite(stockName)),
+      ? unfavorite(username, stockName)
+      : addFavorite(username, stockName)),
 });
 const mapStateToProps = createStructuredSelector({
   favorites: selectFavorites(),
+  username: selectUsername(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteIcon);

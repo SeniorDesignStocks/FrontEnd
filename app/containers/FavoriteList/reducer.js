@@ -46,12 +46,11 @@ function favoriteListReducer(state = initialState, action) {
         .filter((item) => item.get('name') !== action.stockName);
 
     case REQUEST_FAVORITES_DATA:
-      return state
-        .set(action.favorites.map((stockName) => ({
-          name: stockName,
-          curValues: false,
-          plotData: false,
-        })));
+      return fromJS(action.favorites.map((stockName) => ({
+        name: stockName,
+        curValues: false,
+        plotData: false,
+      })));
 
     default:
       return state;

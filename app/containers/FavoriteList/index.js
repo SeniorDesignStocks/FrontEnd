@@ -7,6 +7,7 @@
 import React, { PropTypes, Component } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
 
 // selectors
 import selectFavoriteList from './selectors';
@@ -24,7 +25,7 @@ export class FavoriteList extends Component { // eslint-disable-line react/prefe
   componentWillReceiveProps(newProps) {
     const { favorites } = newProps;
 
-    if (favorites !== this.props.favorites) {
+    if (!isEqual(favorites, this.props.favorites)) {
       this.props.getFavoritesData(favorites);
     }
   }
@@ -42,8 +43,8 @@ export class FavoriteList extends Component { // eslint-disable-line react/prefe
           getCurValues={() => getCurValues(data.name)}
         />
       );
-    } else if (favorites) {
-      content = <div>You need to add favorites</div>;
+    } else if (favorites && favorites.length === 0) {
+      content = <div>testing</div>;
     } else {
       content = <LogInMessage />;
     }
