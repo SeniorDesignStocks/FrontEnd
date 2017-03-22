@@ -10,6 +10,7 @@ import {
   FAVORITE_DATA_SUCCESS,
   REQUEST_CUR_VALUES,
   CUR_VALUES_SUCCESS,
+  REQUEST_FAVORITES_DATA,
 } from './constants';
 
 export const requestPlotData = (stockName) => ({
@@ -37,4 +38,9 @@ export const curValuesLoaded = (stockName, curValues) => ({
   type: CUR_VALUES_SUCCESS,
   stockName,
   curValues,
+});
+
+export const requestFavoritesData = (favorites) => ({
+  type: REQUEST_FAVORITES_DATA,
+  favorites,
 });

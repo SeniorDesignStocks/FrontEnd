@@ -4,7 +4,7 @@
  *
  */
 
-import React, { PropTypes, PureComponent } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
@@ -13,19 +13,27 @@ import selectFavoriteList from './selectors';
 import { selectFavorites } from 'containers/App/selectors';
 
 // actions
-import { requestPlotData, requestCurValues } from './actions';
+import { requestPlotData, requestCurValues, requestFavoritesData } from './actions';
 
 // components
 import Wrapper from './elements/Wrapper';
 import FavoriteStock from 'components/FavoriteStock';
 import LogInMessage from 'components/LogInMessage';
 
-export class FavoriteList extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class FavoriteList extends Component { // eslint-disable-line react/prefer-stateless-function
+  componentWillReceiveProps(newProps) {
+    const { favorites } = newProps;
+
+    if (favorites !== this.props.favorites) {
+      this.props.getFavoritesData(favorites);
+    }
+  }
+
   render() {
     const { favoritesData, favorites, getPlotData, getCurValues } = this.props;
 
     let content = '';
-    if (favorites) {
+    if (favoritesData.length > 0) {
       content = favoritesData.map((data, key) =>
         <FavoriteStock
           key={key}
@@ -34,6 +42,8 @@ export class FavoriteList extends PureComponent { // eslint-disable-line react/p
           getCurValues={() => getCurValues(data.name)}
         />
       );
+    } else if (favorites) {
+      content = <div>You need to add favorites</div>;
     } else {
       content = <LogInMessage />;
     }
@@ -50,6 +60,7 @@ FavoriteList.propTypes = {
   favoritesData: PropTypes.array,
   getPlotData: PropTypes.func,
   getCurValues: PropTypes.func,
+  getFavoritesData: PropTypes.func,
   favorites: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.array,
@@ -65,6 +76,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getPlotData: (stockName) => dispatch(requestPlotData(stockName)),
     getCurValues: (stockName) => dispatch(requestCurValues(stockName)),
+    getFavoritesData: (favorites) => dispatch(requestFavoritesData(favorites)),
   };
 }
 

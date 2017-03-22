@@ -8,21 +8,14 @@ import { fromJS } from 'immutable';
 import {
   PLOT_DATA_SUCCESS,
   CUR_VALUES_SUCCESS,
+  REQUEST_FAVORITES_DATA,
 } from './constants';
 import {
   ADDFAVORITE_SUCCESS,
   UNFAVORITE_SUCCESS,
 } from 'containers/App/constants';
 
-const initialState = fromJS([{
-  name: 'AAPL',
-  curValues: false,
-  plotData: false,
-}, {
-  name: 'GOOG',
-  curValues: false,
-  plotData: false,
-}]);
+const initialState = fromJS([]);
 
 function favoriteListReducer(state = initialState, action) {
   switch (action.type) {
@@ -51,6 +44,14 @@ function favoriteListReducer(state = initialState, action) {
     case UNFAVORITE_SUCCESS:
       return state
         .filter((item) => item.get('name') !== action.stockName);
+
+    case REQUEST_FAVORITES_DATA:
+      return state
+        .set(action.favorites.map((stockName) => ({
+          name: stockName,
+          curValues: false,
+          plotData: false,
+        })));
 
     default:
       return state;

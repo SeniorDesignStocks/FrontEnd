@@ -14,13 +14,10 @@ import {
 
 export function* postNewAccount({ username, password, email }) {
   try {
-    const res = call(register, { username, password, email });
+    const res = yield call(register, { username, password, email });
 
-    console.log(res);
     browserHistory.push('/');
-    yield put(signUpSuccess({
-      username,
-    }));
+    yield put(signUpSuccess(res.user));
   } catch (err) {
     yield put(signUpFailure({ username, password, email }));
   }

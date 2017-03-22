@@ -29,17 +29,15 @@ function SignUpForm({ handleSubmit, errors }) {
       <Section>
         <Label htmlFor="username">Username</Label>
         <Field name="username" autoFocus component={TextInput} type="text" />
-        {makeErrorMessage(username)}
+        { username && email && password && makeErrorMessage('Username or email is already in use')}
       </Section>
       <Section>
         <Label htmlFor="email">Email</Label>
         <Field name="email" component={TextInput} type="text" />
-        {makeErrorMessage(email)}
       </Section>
       <Section>
         <Label htmlFor="password">Password</Label>
         <Field name="password" component={TextInput} type="text" />
-        {makeErrorMessage(password)}
       </Section>
       <Button type="submit">Sign Up</Button>
       <Button to="/sign-in" primary={false}>Sign In</Button>

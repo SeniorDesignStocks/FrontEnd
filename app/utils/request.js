@@ -48,22 +48,27 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options, cache = true) {
-  const cacheVal = requestCache.get(url);
+export default function request(url, params, options, cache = true) {
+  let tempUrl = url;
+  const formattedParams = Object.entries(params);
+  if (formattedParams.length > 0) {
+    tempUrl += `?${formattedParams.map(([key, val]) => `${key}=${val}`).join('&')}`;
+  }
 
+  const cacheVal = requestCache.get(tempUrl);
   if (cacheVal === undefined) {
-    let boundPush = requestCache.push(url);
+    let boundPush = requestCache.push(tempUrl);
 
     // unset the caching function if the cache is off
     if (cache === false) boundPush = (val) => val;
 
-    return fetch(url, options)
+    return fetch(tempUrl, options)
       .then(checkStatus)
       .then(parseJSON)
       .then(boundPush);
   }
 
-  console.log(`request skipped: ${url}`);
+  console.log(`request skipped: ${tempUrl}`);
 
   return cacheVal;
 }

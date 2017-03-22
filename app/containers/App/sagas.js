@@ -36,14 +36,8 @@ export function* getUserData({ username, password }) {
   try {
     const res = yield call(login, { username, password });
 
-    if (res === 'Invalid Username/Password') {
-      yield put(signInFailure(errorMessage));
-    } else {
-      browserHistory.push('/');
-      yield put(signInSuccess({
-        username,
-      }));
-    }
+    browserHistory.push('/');
+    yield put(signInSuccess(res.user));
   } catch (err) {
     yield put(signInFailure(errorMessage));
   }

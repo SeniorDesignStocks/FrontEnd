@@ -1,19 +1,22 @@
 import request from 'utils/request';
 
 export const login = (options) => request(
-  'http://stockssimplified.ddns.net:4567/user/login',
+  'http://localhost:8080/user/login',
   options,
+  undefined,
   false,
 );
 
 export const logout = (options) => request(
-  'http://stockssimplified.ddns.net:4567/user/logout',
+  'http://localhost:8080/user/logout',
   options,
+  undefined,
   false,
 );
 
 export const register = (options) => request(
-  'http://stockssimplified.ddns.net:4567/user/register',
+  'http://localhost:8080/user/register',
   options,
+  undefined,
   false,
 );
