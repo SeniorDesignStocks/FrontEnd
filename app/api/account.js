@@ -1,14 +1,15 @@
 import request from 'utils/request';
+import { route } from './index';
 
 export const addFavorite = ({ username, stockName }) => request(
-  `http://localhost:8080/account/${username}/addFavorite/${stockName}`,
+  `${route}/account/${username}/addFavorite/${stockName}`,
   {},
   undefined,
   false,
 );
 
 export const removeFavorite = ({ username, stockName }) => request(
-  `http://localhost:8080/account/${username}/removeFavorite/${stockName}`,
+  `${route}/account/${username}/removeFavorite/${stockName}`,
   {},
   undefined,
   false,

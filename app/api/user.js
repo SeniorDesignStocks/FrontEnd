@@ -1,21 +1,22 @@
 import request from 'utils/request';
+import { route } from './index';
 
 export const login = (options) => request(
-  'http://localhost:8080/user/login',
+  `${route}/user/login`,
   options,
   undefined,
   false,
 );
 
 export const logout = (options) => request(
-  'http://localhost:8080/user/logout',
+  `${route}/user/logout`,
   options,
   undefined,
   false,
 );
 
 export const register = (options) => request(
-  'http://localhost:8080/user/register',
+  `${route}/user/register`,
   options,
   undefined,
   false,
