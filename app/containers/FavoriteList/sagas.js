@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { call, takeEvery, put, take, cancel } from 'redux-saga/effects';
-import request from 'utils/request';
+import { historic, current } from 'api/stockData';
 
 import {
   plotDataLoaded,
@@ -19,12 +19,10 @@ import {
 } from 'containers/App/constants';
 
 export function* getPlotData({ stockName }) {
-  const requestURL = `http://localhost:8080/api/stockData/plotData/${stockName}`;
-
   try {
-    const res = yield call(request, requestURL);
+    const res = yield call(historic, { stockName });
 
-    yield put(plotDataLoaded(stockName, res.data));
+    yield put(plotDataLoaded(stockName, res));
   } catch (err) {
     yield put(displayError(err));
   }
@@ -33,21 +31,16 @@ export function* getPlotData({ stockName }) {
 export function* getFavoriteData({ stockName }) {
   yield put(favoriteDataSuccess(fromJS({
     name: stockName,
-    stockData: {
-      value: 300,
-      up: true,
-    },
+    stockData: false,
     plotData: false,
   })));
 }
 
 export function* getCurValues({ stockName }) {
-  const requestURL = `http://localhost:8080/api/stockData/general/${stockName}`;
-
   try {
-    const res = yield call(request, requestURL);
+    const res = yield call(current, { stockName });
 
-    yield put(curValuesLoaded(stockName, res.data));
+    yield put(curValuesLoaded(stockName, res));
   } catch (err) {
     yield put(displayError(err));
   }

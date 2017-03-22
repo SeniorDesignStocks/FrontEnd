@@ -1,6 +1,7 @@
 import { call, takeLatest, put, take, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import request from 'utils/request';
+import { historic, current } from 'api/stockData';
 
 import {
   REQUEST_PLOT_DATA,
@@ -23,12 +24,10 @@ import {
 } from './actions';
 
 export function* loadPlotData({ stockName }) {
-  const requestURL = `http://localhost:8080/api/stockData/plotData/${stockName}`;
-
   try {
-    const res = yield call(request, requestURL);
+    const res = yield call(historic, { stockName });
 
-    yield put(plotDataSuccess(res.data));
+    yield put(plotDataSuccess(res));
   } catch (err) {
     yield put(plotDataFailure(err));
   }
@@ -51,12 +50,10 @@ export function* loadNews() {
 }
 
 export function* loadCurValues({ stockName }) {
-  const requestURL = `http://localhost:8080/api/stockData/general/${stockName}`;
-
   try {
-    const res = yield call(request, requestURL);
+    const res = yield call(current, { stockName });
 
-    yield put(curValuesSuccess(res.data));
+    yield put(curValuesSuccess(res));
   } catch (err) {
     yield put(curValuesFailure(err));
   }

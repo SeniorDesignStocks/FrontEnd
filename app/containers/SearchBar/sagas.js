@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import request from 'utils/request';
+import { termSearch } from 'api/search';
 import { REQUEST_SEARCH_RESULTS } from './constants';
 import { searchResultsSuccess } from './actions';
 import { displayError } from 'containers/App/actions';
@@ -8,12 +8,10 @@ export function* getSearchResults({ searchTerm }) {
   if (searchTerm === '') {
     yield put(searchResultsSuccess([], ''));
   } else {
-    const requestURL = `http://localhost:8080/api/search/results/${searchTerm}`;
-
     try {
-      const res = yield call(request, requestURL);
+      const res = yield call(termSearch, { term: searchTerm });
 
-      yield put(searchResultsSuccess(res.data, searchTerm));
+      yield put(searchResultsSuccess(res, searchTerm));
     } catch (err) {
       yield put(displayError(err));
     }
