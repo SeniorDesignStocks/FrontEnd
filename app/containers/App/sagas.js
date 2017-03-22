@@ -1,5 +1,7 @@
-import { takeEvery, put, takeLatest } from 'redux-saga/effects';
+import { takeEvery, put, takeLatest, call } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
+import { login } from 'api/user';
+
 import {
   unfavoriteSuccess,
   addFavoriteSuccess,
@@ -27,16 +29,23 @@ export function* unfavorite() {
 }
 
 export function* getUserData({ username, password }) {
-  if (username === 'test' && password === 'test') {
-    browserHistory.push('/');
-    yield put(signInSuccess({
-      favorites: ['AAPL', 'AASS', 'GOOG'],
-      username,
-    }));
-  } else {
-    yield put(signInFailure({
-      message: 'Invalid username or password',
-    }));
+  const errorMessage = {
+    message: 'Invalid Username/Password',
+  };
+
+  try {
+    const res = yield call(login, { username, password });
+
+    if (res === 'Invalid Username/Password') {
+      yield put(signInFailure(errorMessage));
+    } else {
+      browserHistory.push('/');
+      yield put(signInSuccess({
+        username,
+      }));
+    }
+  } catch (err) {
+    yield put(signInFailure(errorMessage));
   }
 }
 

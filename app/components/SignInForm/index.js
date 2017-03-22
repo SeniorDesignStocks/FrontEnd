@@ -24,7 +24,7 @@ function SignInForm({ handleSubmit, errorMessage }) {
       </Section>
       <Section>
         <Label htmlFor="password">Password</Label>
-        <Field name="password" component={TextInput} type="text" />
+        <Field name="password" component={TextInput} type="password" />
       </Section>
       <ErrorMessage>{errorMessage}</ErrorMessage>
       <Button type="submit">Sign In</Button>

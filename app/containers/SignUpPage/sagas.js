@@ -1,7 +1,9 @@
 // import { take, call, put, select } from 'redux-saga/effects';
-import { takeLatest, put, take, cancel } from 'redux-saga/effects';
+import { takeLatest, put, call, take, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { browserHistory } from 'react-router';
+
+import { register } from 'api/user';
 import {
   signUpSuccess,
   signUpFailure,
@@ -11,14 +13,15 @@ import {
 } from './constants';
 
 export function* postNewAccount({ username, password, email }) {
-  if (username.length >= 4 && password.length >= 4 && email.length >= 4) {
+  try {
+    const res = call(register, { username, password, email });
+
+    console.log(res);
     browserHistory.push('/');
     yield put(signUpSuccess({
       username,
-      favorites: ['AAPL', 'AASS', 'GOOG'],
     }));
-  } else {
-    // default error messages before i get more complex ones to return from the server
+  } catch (err) {
     yield put(signUpFailure({ username, password, email }));
   }
 }

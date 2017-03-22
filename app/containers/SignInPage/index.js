@@ -24,6 +24,7 @@ export class SignInPage extends React.PureComponent { // eslint-disable-line rea
 
   render() {
     const { errorMessage, oldPathName } = this.props;
+    console.log(errorMessage);
 
     return (
       <Overlay oldPathName={oldPathName}>

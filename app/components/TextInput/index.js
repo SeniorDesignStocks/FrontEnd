@@ -28,10 +28,10 @@ class TextInput extends Component {
   }
 
   render() {
-    const { input } = this.props;
+    const { input, type = 'text' } = this.props;
 
     return (
-      <Input {...input} innerRef={(node) => { this.node = node; }} type="text" />
+      <Input {...input} innerRef={(node) => { this.node = node; }} type={type} />
     );
   }
 }
@@ -39,6 +39,7 @@ class TextInput extends Component {
 TextInput.propTypes = {
   input: PropTypes.object,
   autoFocus: PropTypes.bool,
+  type: PropTypes.string,
 };
 
 export default TextInput;
