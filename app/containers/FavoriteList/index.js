@@ -44,7 +44,7 @@ export class FavoriteList extends Component { // eslint-disable-line react/prefe
         />
       );
     } else if (favorites && favorites.length === 0) {
-      content = <div>testing</div>;
+      content = <LogInMessage message="You have no favorites O.o" />;
     } else {
       content = <LogInMessage />;
     }

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
 import { connect } from 'react-redux';
@@ -58,6 +59,13 @@ class App extends React.PureComponent { // eslint-disable-line react/prefer-stat
 
     return (
       <Wrapper style={isOverlay ? { overflow: 'hidden', height: '100vh' } : {}}>
+        <Helmet
+          titleTemplate="%s - Stocks Simplified"
+          defaultTitle="Stocks Simplified"
+          meta={[
+            { name: 'description', content: 'Basically the best website ever made' },
+          ]}
+        />
         <SearchBar />
         <Navbar pathName={pathname} userData={userData} />
 

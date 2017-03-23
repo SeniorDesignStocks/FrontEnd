@@ -11,10 +11,14 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 
-const LogInMessage = () => (
+const LogInMessage = ({ message = 'You need to log in inorder to use this feature' }) => (
   <Wrapper>
-    You need to log in inorder to use this feature.
+    {message}
   </Wrapper>
 );
+
+LogInMessage.propTypes = {
+  message: React.PropTypes.string,
+};
 
 export default LogInMessage;

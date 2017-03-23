@@ -18,12 +18,6 @@ class Navbar extends Component { // eslint-disable-line react/prefer-stateless-f
   routes = [{
     pathName: '/',
     name: 'Favorites',
-  }, {
-    pathName: '/growth',
-    name: 'Growth',
-  }, {
-    pathName: '/loss',
-    name: 'Loss',
   }]
 
   render() {

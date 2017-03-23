@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import Helmet from 'react-helmet';
 import {
   selectErrorMessage,
 } from 'containers/App/selectors';
@@ -27,6 +28,12 @@ export class SignInPage extends React.PureComponent { // eslint-disable-line rea
 
     return (
       <Overlay oldPathName={oldPathName}>
+        <Helmet
+          title="Sign In"
+          meta={[
+            { name: 'description', content: 'Sign In Page' },
+          ]}
+        />
         <SignInForm errorMessage={errorMessage} onSubmit={this.handleSubmit} />
       </Overlay>
     );

@@ -8,12 +8,19 @@
 import React from 'react';
 
 import FavoriteList from 'containers/FavoriteList';
+import Helmet from 'react-helmet';
 import Background from './Background';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <Background>
+        <Helmet
+          title="Home"
+          meta={[
+            { name: 'description', content: 'Home page' },
+          ]}
+        />
         <FavoriteList />
       </Background>
     );
