@@ -13,7 +13,7 @@ import selectFavoriteList from './selectors';
 import { selectFavorites } from 'containers/App/selectors';
 
 // actions
-import { requestPlotData, requestCurValues, requestFavoritesData } from './actions';
+import { requestPlotData, requestCurValues, requestFavoritesData, requestPredictions } from './actions';
 
 // components
 import Wrapper from './elements/Wrapper';
@@ -30,7 +30,7 @@ export class FavoriteList extends Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { favoritesData, favorites, getPlotData, getCurValues } = this.props;
+    const { favoritesData, favorites, getPlotData, getCurValues, getPredictions } = this.props;
 
     let content = '';
     if (favoritesData.length > 0) {
@@ -38,6 +38,7 @@ export class FavoriteList extends Component { // eslint-disable-line react/prefe
         <FavoriteStock
           key={key}
           data={data}
+          getPredictions={() => getPredictions(data.name)}
           getPlotData={() => getPlotData(data.name)}
           getCurValues={() => getCurValues(data.name)}
         />
@@ -61,6 +62,7 @@ FavoriteList.propTypes = {
   getPlotData: PropTypes.func,
   getCurValues: PropTypes.func,
   getFavoritesData: PropTypes.func,
+  getPredictions: PropTypes.func,
   favorites: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.array,
@@ -76,6 +78,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getPlotData: (stockName) => dispatch(requestPlotData(stockName)),
     getCurValues: (stockName) => dispatch(requestCurValues(stockName)),
+    getPredictions: (stockName) => dispatch(requestPredictions(stockName)),
     getFavoritesData: (favorites) => dispatch(requestFavoritesData(favorites)),
   };
 }

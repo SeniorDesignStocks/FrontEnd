@@ -2,17 +2,22 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { call, takeEvery, put, take, cancel } from 'redux-saga/effects';
 import { historic, current } from 'api/stockData';
+import { predict } from 'api/predictions';
 
 import {
   plotDataLoaded,
   favoriteDataSuccess,
   curValuesLoaded,
-} from './actions'; import {
+  predictionsSuccess,
+} from './actions';
+import {
   displayError,
 } from 'containers/App/actions';
+
 import {
   REQUEST_PLOT_DATA,
   REQUEST_CUR_VALUES,
+  REQUEST_PREDICTIONS,
 } from './constants';
 import {
   ADDFAVORITE_SUCCESS,
@@ -33,6 +38,7 @@ export function* getFavoriteData({ stockName }) {
     name: stockName,
     stockData: false,
     plotData: false,
+    predictions: false,
   })));
 }
 
@@ -41,6 +47,17 @@ export function* getCurValues({ stockName }) {
     const res = yield call(current, { stockName });
 
     yield put(curValuesLoaded(stockName, res));
+  } catch (err) {
+    yield put(displayError(err));
+  }
+}
+
+export function* getPredictions({ stockName }) {
+  try {
+    const res = yield call(predict, { stockName });
+    console.log(res);
+
+    yield put(predictionsSuccess(stockName, res));
   } catch (err) {
     yield put(displayError(err));
   }
@@ -70,9 +87,18 @@ export function* curValues() {
   yield cancel(watcher);
 }
 
+export function* predictions() {
+  const watcher = yield takeEvery(REQUEST_PREDICTIONS, getPredictions);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
 // All sagas to be loaded
 export default [
   plotData,
   favoriteData,
   curValues,
+  predictions,
 ];

@@ -21,6 +21,7 @@ import { lightBlue, black, darkGrey, red } from 'styles/colors';
 import DatePeriodSelector from './elements/DatePeriodSelector';
 import Wrapper from './elements/Wrapper';
 
+const roundNumber = (num) => Math.round(num * 100) / 100;
 const tooltipFormat = (date) => moment(date).format('MMM Do');
 
 class StockGraph extends Component {
@@ -65,35 +66,38 @@ class StockGraph extends Component {
     }
   }
 
-  createPredictions(data) {
-    const formatNumber = (num, exp = 2) => Math.round(num * (10 ** exp)) / (10 ** exp);
-    let lastPoint = data[data.length - 1];
-    lastPoint.prediction = lastPoint.close;
-    let length = 2;
+  createPredictions(data, prediction) {
+    const output = [];
+    const lastDate = data[data.length - 1];
+    const average = lastDate.average;
+    const curDay = moment(lastDate.date);
+    // adds the prediction the object
+    // effects the data object due to ref
+    lastDate.prediction = lastDate.close;
 
-    if (data.length > 20) {
-      length = 5;
+    output.push({
+      date: curDay.add(1, 'days').format(),
+      prediction: roundNumber(prediction.predictionDay),
+      average,
+    });
+
+    if (data.length > 15) {
+      output.push({
+        date: curDay.add(1, 'weeks').format(),
+        prediction: roundNumber(prediction.predictionWeek),
+        average,
+      });
     }
 
     if (data.length > 50) {
-      length = 7;
-    }
-
-    if (data.length > 100) {
-      length = 10;
-    }
-
-    return (new Array(length))
-      .fill('')
-      .map(() => {
-        lastPoint = {
-          date: moment(lastPoint.date).add(1, 'days').toString(),
-          average: lastPoint.average,
-          prediction: formatNumber(lastPoint.prediction * (1 + (0.05 - (0.1 * Math.random())))),
-        };
-
-        return lastPoint;
+      output.push({
+        date: curDay.add(1, 'months').format(),
+        prediction: roundNumber(prediction.predictionMonth),
+        average,
       });
+    }
+
+    return output;
   }
 
   // Converting the data so that it is displayed better by rechart in tooltips
@@ -109,16 +113,16 @@ class StockGraph extends Component {
   }
 
   render() {
-    const { data, width = 800, margin = { right: 50, top: 10, bottom: 10 }, brush, datePeriodSelector } = this.props;
+    const { data, width = 800, margin = { right: 50, top: 10, bottom: 10 }, brush, datePeriodSelector, predictions } = this.props;
     const filteredData = this.convertData(this.filterData(data));
-    const predictions = this.createPredictions(filteredData);
+    const filteredPredictions = this.createPredictions(filteredData, predictions);
 
     return (
       <Wrapper>
         { datePeriodSelector
           ? <DatePeriodSelector pickFilter={this.handleFilter} filter={this.state.filter} />
           : '' }
-        <AreaChart width={width} height={400} margin={margin} data={[...filteredData, ...predictions]}>
+        <AreaChart width={width} height={400} margin={margin} data={[...filteredData, ...filteredPredictions]}>
           <defs>
             <linearGradient id="lightBlue" x1="0" y1="0" x2="0" y2="1">
               <stop stopColor={lightBlue} stopOpacity={0.1} />
@@ -159,7 +163,11 @@ class StockGraph extends Component {
 
           <Tooltip labelFormatter={tooltipFormat} />
           <XAxis dataKey="date" tickFormatter={tooltipFormat} minTickGap={100} />
-          <YAxis dataKey="close" />
+          <YAxis
+            dataKey="close"
+            domain={['dataMin - 10', 'dataMax + 10']}
+            allowDecimals={false}
+          />
           { brush
             ? <Brush dataKey="date" height={30} stroke={black} tickFormatter={tooltipFormat} />
             : '' }
@@ -174,6 +182,7 @@ StockGraph.propTypes = {
   width: PropTypes.number,
   margin: PropTypes.object,
   brush: PropTypes.bool,
+  predictions: PropTypes.object,
   datePeriodSelector: PropTypes.bool,
 };
 

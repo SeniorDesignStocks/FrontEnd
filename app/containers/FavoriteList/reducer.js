@@ -9,6 +9,7 @@ import {
   PLOT_DATA_SUCCESS,
   CUR_VALUES_SUCCESS,
   REQUEST_FAVORITES_DATA,
+  PREDICTIONS_SUCCESS,
 } from './constants';
 import {
   ADDFAVORITE_SUCCESS,
@@ -34,11 +35,20 @@ function favoriteListReducer(state = initialState, action) {
           (item) => item.set('curValues', action.curValues)
         );
 
+    case PREDICTIONS_SUCCESS:
+      console.log('here');
+      return state
+        .update(
+          state.findIndex((item) => item.get('name') === action.stockName),
+          (item) => item.set('predictions', action.predictions),
+        );
+
     case ADDFAVORITE_SUCCESS:
       return state.push(fromJS({
         name: action.stockName,
         curValues: false,
         plotData: false,
+        predictions: false,
       }));
 
     case UNFAVORITE_SUCCESS:
@@ -50,6 +60,7 @@ function favoriteListReducer(state = initialState, action) {
         name: stockName,
         curValues: false,
         plotData: false,
+        predictions: false,
       })));
 
     default:

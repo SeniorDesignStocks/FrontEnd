@@ -11,6 +11,8 @@ import {
   REQUEST_CUR_VALUES,
   CUR_VALUES_SUCCESS,
   REQUEST_FAVORITES_DATA,
+  REQUEST_PREDICTIONS,
+  PREDICTIONS_SUCCESS,
 } from './constants';
 
 export const requestPlotData = (stockName) => ({
@@ -43,4 +45,15 @@ export const curValuesLoaded = (stockName, curValues) => ({
 export const requestFavoritesData = (favorites) => ({
   type: REQUEST_FAVORITES_DATA,
   favorites,
+});
+
+export const requestPredictions = (stockName) => ({
+  type: REQUEST_PREDICTIONS,
+  stockName,
+});
+
+export const predictionsSuccess = (stockName, predictions) => ({
+  type: PREDICTIONS_SUCCESS,
+  stockName,
+  predictions,
 });
