@@ -115,7 +115,7 @@ class StockGraph extends Component {
   render() {
     const { data, width = 800, margin = { right: 50, top: 10, bottom: 10 }, brush, datePeriodSelector, predictions } = this.props;
     const filteredData = this.convertData(this.filterData(data));
-    const filteredPredictions = this.createPredictions(filteredData, predictions);
+    const filteredPredictions = predictions ? this.createPredictions(filteredData, predictions) : [];
 
     return (
       <Wrapper>
@@ -156,10 +156,13 @@ class StockGraph extends Component {
             dot={false}
             fill="url(#none)"
           />
-          <ReferenceLine
-            x={filteredData[filteredData.length - 1].date}
-            stroke={black}
-          />
+          { filteredPredictions.length > 0
+            ? <ReferenceLine
+              x={filteredData[filteredData.length - 1].date}
+              stroke={black}
+            />
+            : ''
+          }
 
           <Tooltip labelFormatter={tooltipFormat} />
           <XAxis dataKey="date" tickFormatter={tooltipFormat} minTickGap={100} />
@@ -182,7 +185,7 @@ StockGraph.propTypes = {
   width: PropTypes.number,
   margin: PropTypes.object,
   brush: PropTypes.bool,
-  predictions: PropTypes.object,
+  predictions: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   datePeriodSelector: PropTypes.bool,
 };
 

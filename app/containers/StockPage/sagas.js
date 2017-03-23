@@ -2,6 +2,7 @@ import { call, takeLatest, put, take, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import request from 'utils/request';
 import { historic, current } from 'api/stockData';
+import { predict } from 'api/predictions';
 
 import {
   REQUEST_PLOT_DATA,
@@ -18,6 +19,7 @@ import {
   newsFailure,
 
   predictionsSuccess,
+  predictionsFailure,
 
   curValuesSuccess,
   curValuesFailure,
@@ -33,8 +35,14 @@ export function* loadPlotData({ stockName }) {
   }
 }
 
-export function* loadPredictions() {
-  yield put(predictionsSuccess({}));
+export function* loadPredictions({ stockName }) {
+  try {
+    const res = yield call(predict, { stockName });
+
+    yield put(predictionsSuccess(res));
+  } catch (err) {
+    yield put(predictionsFailure(err));
+  }
 }
 
 export function* loadNews() {

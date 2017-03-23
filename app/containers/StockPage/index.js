@@ -18,6 +18,7 @@ import TitleSection from './elements/TitleSection';
 import TitleElement from './elements/TitleElement';
 import SectionTitle from './elements/SectionTitle';
 import TitleSectionWhiteSpace from './elements/TitleSectionWhiteSpace';
+import PredictionsPanel from './elements/PredictionsPanel';
 
 import P from 'components/P';
 import H2 from 'components/H2';
@@ -77,11 +78,13 @@ export class StockPage extends PureComponent { // eslint-disable-line react/pref
               {curValues ? curValues.lastTradePriceOnly : '~'}
             </TitleElement>
           </TitleSection>
+
           { plotData
-            ? <StockGraph data={plotData} datePeriodSelector />
+            ? <StockGraph data={plotData} predictions={predictions} datePeriodSelector />
             : <LoadingBar /> }
+
           <SectionTitle>Predicitons</SectionTitle>
-          {predictions ? '' : ''}
+          {predictions ? <PredictionsPanel curVal={curValues.lastTradePriceOnly} predictions={predictions} /> : ''}
 
           <SectionTitle>News</SectionTitle>
           { news
